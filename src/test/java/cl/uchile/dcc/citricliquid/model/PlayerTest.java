@@ -20,13 +20,20 @@ public class PlayerTest {
 
   @BeforeEach
   public void setUp() {
-    suguri = new Player(PLAYER_NAME, 4, 1, -1, 2);
+    suguri = getSuguri();
   }
+  private Player getSuguri(){ //
+      return new Player(PLAYER_NAME, 4, 1, -1, 2);
+  }
+
 
   @Test
   public void constructorTest() {
     final var expectedSuguri = new Player(PLAYER_NAME, 4, 1, -1, 2);
     Assertions.assertEquals(expectedSuguri, suguri);
+    Assertions.assertNotEquals(null,suguri);
+    Assertions.assertNotEquals(suguri,new Object());
+    Assertions.assertNotSame(suguri,getSuguri());
   }
 
   @Test
@@ -34,7 +41,7 @@ public class PlayerTest {
     final var o = new Object();
     Assertions.assertNotEquals(suguri, o);
     Assertions.assertEquals(suguri, suguri);
-    final var expectedSuguri = new Player(PLAYER_NAME, 4, 1, -1, 2);
+    final var expectedSuguri = getSuguri();
     Assertions.assertEquals(expectedSuguri, suguri);
   }
 
