@@ -27,7 +27,6 @@ public class PlayerTest {
       return new Player(PLAYER_NAME, 4, 1, -1, 2);
   }
 
-
   @Test
   public void constructorTest() {
     final var expectedSuguri = new Player(PLAYER_NAME, 4, 1, -1, 2);
