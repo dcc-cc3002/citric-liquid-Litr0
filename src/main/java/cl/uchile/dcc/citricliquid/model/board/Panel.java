@@ -1,6 +1,6 @@
 package cl.uchile.dcc.citricliquid.model.board;
 
-import cl.uchile.dcc.citricliquid.model.Player;
+import cl.uchile.dcc.citricliquid.model.Character.Player;
 import java.util.HashSet;
 import java.util.Set;
 import org.jetbrains.annotations.NotNull;

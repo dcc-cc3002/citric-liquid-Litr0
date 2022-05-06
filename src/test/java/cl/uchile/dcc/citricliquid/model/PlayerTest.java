@@ -1,5 +1,6 @@
 package cl.uchile.dcc.citricliquid.model;
 
+import cl.uchile.dcc.citricliquid.model.Character.Player;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
@@ -64,7 +65,7 @@ public class PlayerTest {
 
   @Test
   public void copyTest() {
-    final var expectedSuguri = new Player(PLAYER_NAME, 4, 1, -1, 2);
+    final var expectedSuguri = getSuguri();
     final var actualSuguri = suguri.copy();
     // Checks that the copied player have the same parameters as the original
     Assertions.assertEquals(expectedSuguri, actualSuguri);

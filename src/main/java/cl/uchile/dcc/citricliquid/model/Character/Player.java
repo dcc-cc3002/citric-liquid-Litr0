@@ -1,4 +1,4 @@
-package cl.uchile.dcc.citricliquid.model;
+package cl.uchile.dcc.citricliquid.model.Character;
 
 import java.util.Random;
 
@@ -35,7 +35,7 @@ public class Player {
    * @param evd
    *     the base evasion of the character.
    */
-  public Player(final String name, final int hp, final int atk, final int def,
+  public Player (final String name, final int hp, final int atk, final int def,
                 final int evd) {
     this.name = name;
     this.maxHp = currentHp = hp;
