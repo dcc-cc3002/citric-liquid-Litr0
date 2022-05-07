@@ -31,7 +31,7 @@ public class AbstractCharacterTest {
         Assertions.assertNotEquals(suguri,new Object());
         Assertions.assertNotSame(suguri,getSuguri());
         Assertions.assertEquals(0,suguri.getStars());
-        Assertions.assertEquals(0,suguri.getwins());
+        Assertions.assertEquals(0,suguri.getWins());
     }
 
 
