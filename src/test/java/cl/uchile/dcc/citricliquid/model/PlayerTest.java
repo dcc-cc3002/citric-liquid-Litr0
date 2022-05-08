@@ -28,35 +28,6 @@ public class PlayerTest {
   }
 
   @Test
-  public void constructorTest() {
-    final var expectedSuguri = new Player(PLAYER_NAME, 4, 1, -1, 2);
-    Assertions.assertEquals(expectedSuguri, suguri);
-    Assertions.assertNotEquals(null,suguri);
-    Assertions.assertNotEquals(suguri,new Object());
-    Assertions.assertNotSame(suguri,getSuguri());
-  }
-
-  @Test
-  public void testEquals() {
-    final var o = new Object();
-    Assertions.assertNotEquals(suguri, o);
-    Assertions.assertEquals(suguri, suguri);
-    final var expectedSuguri = getSuguri();
-    Assertions.assertEquals(expectedSuguri, suguri);
-  }
-
-  @Test
-  public void hitPointsTest() {
-    Assertions.assertEquals(suguri.getMaxHp(), suguri.getCurrentHp());
-    suguri.setCurrentHp(2);
-    Assertions.assertEquals(2, suguri.getCurrentHp());
-    suguri.setCurrentHp(-1);
-    Assertions.assertEquals(0, suguri.getCurrentHp());
-    suguri.setCurrentHp(5);
-    Assertions.assertEquals(4, suguri.getCurrentHp());
-  }
-
-  @Test
   public void normaClearTest() {
     suguri.normaClear();
     Assertions.assertEquals(2, suguri.getNormaLevel());
@@ -72,21 +43,6 @@ public class PlayerTest {
     Assertions.assertNotSame(expectedSuguri, actualSuguri);
   }
 
-  // region : consistency tests
-  @RepeatedTest(100)
-  public void hitPointsConsistencyTest() {
-    final long testSeed = new Random().nextLong();
-    // We're gonna try and set random hit points in [-maxHP * 2, maxHP * 2]
-    final int testHP = new Random(testSeed).nextInt(4 * suguri.getMaxHp() + 1)
-                       - 2 * suguri.getMaxHp();
-    suguri.setCurrentHp(testHP);
-    Assertions.assertTrue(0 <= suguri.getCurrentHp()
-                          && suguri.getCurrentHp() <= suguri.getMaxHp(),
-                          suguri.getCurrentHp() + "is not a valid HP value"
-                          + System.lineSeparator() + "Test failed with random seed: "
-                          + testSeed);
-  }
-
   @RepeatedTest(100)
   public void normaClearConsistencyTest() {
     final long testSeed = new Random().nextLong();
@@ -100,14 +56,5 @@ public class PlayerTest {
                             "Test failed with random seed: " + testSeed);
   }
 
-  @RepeatedTest(100)
-  public void rollConsistencyTest() {
-    final long testSeed = new Random().nextLong();
-    suguri.setSeed(testSeed);
-    final int roll = suguri.roll();
-    Assertions.assertTrue(roll >= 1 && roll <= 6,
-                          roll + "is not in [1, 6]" + System.lineSeparator()
-                          + "Test failed with random seed: " + testSeed);
-  }
   // endregion
 }

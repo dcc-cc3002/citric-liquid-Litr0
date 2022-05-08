@@ -1,5 +1,6 @@
 package cl.uchile.dcc.citricliquid.model.Character;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -7,8 +8,8 @@ import java.util.Random;
  */
 public class AbstractCharacter {
     private final Random random;
-    private final String name;
-    private final int maxHp;
+    protected final String name;
+    protected int maxHp;
     protected final int atk;
     protected int def;
     protected final int evd;
@@ -112,7 +113,7 @@ public class AbstractCharacter {
         return random.nextInt(6) + 1;
     }
     /**
-     * Set's the seed for this player's random number generator.
+     * Set's the seed for this character's random number generator.
      *
      * <p>The random number generator is used for taking non-deterministic decisions, this method is
      * declared to avoid non-deterministic behaviour while testing the code.
@@ -121,4 +122,29 @@ public class AbstractCharacter {
         random.setSeed(seed);
     }
 
+    /**
+     * Equals: compares two objects
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractCharacter that)) {
+            return false;
+        }
+        return getMaxHp() == that.getMaxHp()
+                && getAtk() == that.getAtk()
+                && getDef() == that.getDef()
+                && getEvd() == that.getEvd()
+                && getStars() == that.getStars()
+                && getCurrentHp() == that.getCurrentHp()
+                && getWins() == that.getWins()
+                && getName().equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(random, getName(), getMaxHp(), getAtk(), getDef(), getEvd(), getStars(), getCurrentHp(), getWins());
+    }
 }

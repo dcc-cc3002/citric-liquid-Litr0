@@ -76,6 +76,7 @@ public class Player extends AbstractCharacter {
            && getDef() == player.getDef()
            && getEvd() == player.getEvd()
            && getNormaLevel() == player.getNormaLevel()
+           && getWins() == player.getWins()
            && getStars() == player.getStars()
            && getCurrentHp() == player.getCurrentHp()
            && getName().equals(player.getName());
