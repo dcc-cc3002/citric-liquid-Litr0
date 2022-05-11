@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * This class represent the abstract Character of the game
  */
-public class AbstractCharacter {
+public abstract class AbstractCharacter implements ICharacter {
     private final Random random;
     protected final String name;
     protected int maxHp;
@@ -123,6 +123,36 @@ public class AbstractCharacter {
     }
 
     /**
+     * the character attack's
+     * attack decided by a roll of the dice
+     */
+    public  int attack(){
+        return (this.roll()+this.getAtk());
+    }
+
+    /**
+     * executed if character chooses to avoid the attack
+     * @param attack
+     */
+    public void evade(int attack) {
+        int evd = (this.getEvd() + this.roll());
+        int HP = this.getCurrentHp();
+        if (attack >= evd){
+            int actual = Math.max(0,(HP-attack));
+            this.setCurrentHp(actual);
+        }
+    }
+
+    /**
+     * executed if character chooses to defend the attack
+     * @param attack
+     */
+    public void defend(int attack) {
+        int defense = (this.getDef() + this.roll());
+        int atk = Math.max((attack-defense),1);
+        this.setCurrentHp(this.getCurrentHp()-atk);
+    }
+    /**
      * Equals: compares two objects
      */
     @Override
@@ -146,5 +176,9 @@ public class AbstractCharacter {
     @Override
     public int hashCode() {
         return Objects.hash(random, getName(), getMaxHp(), getAtk(), getDef(), getEvd(), getStars(), getCurrentHp(), getWins());
+    }
+
+    public ICharacter copy() {
+        return null;
     }
 }

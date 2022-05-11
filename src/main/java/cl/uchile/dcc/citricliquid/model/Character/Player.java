@@ -82,6 +82,7 @@ public class Player extends AbstractCharacter {
            && getName().equals(player.getName());
   }
 
+
   /**
    * Returns a copy of this character.
    */
