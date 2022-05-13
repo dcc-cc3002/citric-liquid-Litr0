@@ -1,7 +1,5 @@
 package cl.uchile.dcc.citricliquid.model.Character;
 
-import java.util.Random;
-
 /**
  * This class represents a player in the game 99.7% Citric Liquid.
  *
@@ -32,14 +30,6 @@ public class Player extends AbstractCharacter {
     super(name, hp, atk, def, evd);
     normaLevel = 1;
   }
-
-  /**
-   * Increases this player's star count by an amount.
-   */
-  public void increaseStarsBy(final int amount) {
-    stars += amount;
-  }
-
   /**
    * Returns the current norma level.
    */
@@ -54,14 +44,6 @@ public class Player extends AbstractCharacter {
     normaLevel++;
   }
 
-  /**
-   * Reduces this player's star count by a given amount.
-   *
-   * <p>The star count will must always be greater or equal to 0
-   */
-  public void reduceStarsBy(final int amount) {
-    stars = Math.max(0, stars - amount);
-  }
 
   @Override
   public boolean equals(final Object o) {

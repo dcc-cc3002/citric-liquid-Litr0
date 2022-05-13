@@ -20,8 +20,8 @@ public class PlayerTest {
   private Player suguri;
   private final static String WILD_NAME = "Chicken";
   private WildUnit chicken;
-  private final static String WILD_NAME_2 = "Seagull";
-  private WildUnit seagull;
+  private final static String PLAYER_NAME_2 = "Marc";
+  private WildUnit marc;
   private final static String BOSS_NAME = "Store Manager";
   private BossUnit storemanager;
 
@@ -40,8 +40,8 @@ public class PlayerTest {
   private BossUnit getStoremanager(){
     return new BossUnit(BOSS_NAME,8,3,2,-1);
   }
-  private WildUnit getSeagull(){
-    return new WildUnit(WILD_NAME_2,3,1,-1,-1);
+  private WildUnit getMarc(){
+    return new WildUnit(PLAYER_NAME_2,4,1,1,-1);
   }
 
   @Test
@@ -115,6 +115,7 @@ public class PlayerTest {
     Assertions.assertEquals(expectedNorma, suguri.getNormaLevel(),
                             "Test failed with random seed: " + testSeed);
   }
+
 
   // endregion
 }

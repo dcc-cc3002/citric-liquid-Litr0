@@ -152,6 +152,23 @@ public abstract class AbstractCharacter implements ICharacter {
         int atk = Math.max((attack-defense),1);
         this.setCurrentHp(this.getCurrentHp()-atk);
     }
+
+    /**
+     * Increases this player's star count by an amount.
+     */
+    public void increaseStarsBy(final int amount) {
+        stars += amount;
+    }
+
+    /**
+     * Reduces this player's star count by a given amount.
+     *
+     * <p>The star count will must always be greater or equal to 0
+     */
+    public void reduceStarsBy(final int amount) {
+        stars = Math.max(0, stars - amount);
+    }
+
     /**
      * Equals: compares two objects
      */
