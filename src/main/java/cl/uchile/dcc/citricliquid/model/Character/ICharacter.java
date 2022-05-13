@@ -25,6 +25,7 @@ public interface ICharacter {
 
     ICharacter copy();
 
-    void increaseStarsBy(int amount);
+    void increaseStarsBy(ICharacter ICharacter);
 
+    void increaseStarsByPlayer(Player player);
 }

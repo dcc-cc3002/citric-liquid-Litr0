@@ -1,6 +1,5 @@
 package cl.uchile.dcc.citricliquid.model.Character;
 
-import cl.uchile.dcc.citricliquid.model.Character.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
@@ -30,6 +29,7 @@ public class PlayerTest {
     suguri = getSuguri();
     chicken = getChicken();
     storemanager = getStoremanager();
+    marc = getMarc();
   }
   private Player getSuguri(){
     return new Player(PLAYER_NAME, 4, 1, -1, 2);
@@ -102,6 +102,21 @@ public class PlayerTest {
     Assertions.assertEquals(expectedHP,suguri.getCurrentHp());
   }
 
+  @Test
+  public void increaseStarsByTest(){
+    suguri.increaseStarsBy(7);
+    marc.increaseStarsBy(9);
+    storemanager.increaseStarsBy(15);
+    chicken.increaseStarsBy(3);
+
+    int SuguriStars = suguri.getStars();
+    int MarcStars = marc.getStars();
+    marc.increaseStarsBy(suguri);
+    int expectedMarcStars = (int) (MarcStars + Math.ceil(SuguriStars*0.5));
+    int expectedSuguriStars = (int) (SuguriStars - Math.ceil(SuguriStars*0.5));
+    Assertions.assertEquals(expectedMarcStars,marc.getStars());
+    Assertions.assertEquals(expectedSuguriStars,suguri.getStars());
+  }
 
   @RepeatedTest(100)
   public void normaClearConsistencyTest() {
@@ -115,7 +130,6 @@ public class PlayerTest {
     Assertions.assertEquals(expectedNorma, suguri.getNormaLevel(),
                             "Test failed with random seed: " + testSeed);
   }
-
 
   // endregion
 }

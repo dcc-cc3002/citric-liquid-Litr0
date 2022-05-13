@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class BossUnitTest {
     private final static String PLAYER_NAME = "Suguri";
     private Player suguri;

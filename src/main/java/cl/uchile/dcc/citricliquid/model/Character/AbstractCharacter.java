@@ -154,6 +154,12 @@ public abstract class AbstractCharacter implements ICharacter {
     }
 
     /**
+     * increases stars of a character post battle
+     * @param ICharacter
+     */
+    public abstract void increaseStarsBy(ICharacter ICharacter);
+
+    /**
      * Increases this player's star count by an amount.
      */
     public void increaseStarsBy(final int amount) {
@@ -195,7 +201,5 @@ public abstract class AbstractCharacter implements ICharacter {
         return Objects.hash(random, getName(), getMaxHp(), getAtk(), getDef(), getEvd(), getStars(), getCurrentHp(), getWins());
     }
 
-    public ICharacter copy() {
-        return null;
-    }
+    public abstract ICharacter copy();
 }

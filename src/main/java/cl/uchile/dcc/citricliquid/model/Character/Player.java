@@ -44,7 +44,21 @@ public class Player extends AbstractCharacter {
     normaLevel++;
   }
 
+  /**
+   * Increases Stars to the Character that wins the battle
+   */
+  public void increaseStarsBy(ICharacter ICharacter){
+    ICharacter.increaseStarsByPlayer(this);
+  }
+  /**
+   * Increases Stars if a player is defeated
+   */
+  public void increaseStarsByPlayer(Player loser){
 
+  }
+  /**
+   *compares two objects
+   */
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
