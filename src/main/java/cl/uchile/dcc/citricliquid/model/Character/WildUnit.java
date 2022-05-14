@@ -19,6 +19,28 @@ public class WildUnit extends AbstractCharacter{
     public WildUnit(String name, int hp, final int atk,final int def, final int evd){
         super(name, hp, atk, def, evd);
     }
+
+    @Override
+    public void increaseStarsBy(ICharacter ICharacter) {
+        ICharacter.increaseStarsByWildUnit(this);
+    }
+
+    @Override
+    public void increaseStarsByPlayer(Player winner){
+    }
+
+    @Override
+    /**
+     * Increases Stars if a player is defeated by a Wild Unit
+     */
+    public void increaseStarsByWildUnit(WildUnit winner){
+    }
+
+    @Override
+    public void increaseStarsByBossUnit(BossUnit winner) {
+
+    }
+
     @Override
     public WildUnit copy(){
         return new WildUnit(this.getName(), this.getMaxHp(), this.getAtk(), this.getDef(), this.getEvd());

@@ -47,14 +47,34 @@ public class Player extends AbstractCharacter {
   /**
    * Increases Stars to the Character that wins the battle
    */
+  @Override
   public void increaseStarsBy(ICharacter ICharacter){
     ICharacter.increaseStarsByPlayer(this);
   }
   /**
-   * Increases Stars if a player is defeated
+   * Increases Stars if a player is defeated by a Player
    */
-  public void increaseStarsByPlayer(Player loser){
+  @Override
+  public void increaseStarsByPlayer(Player winner){
+    winner.increaseStarsBy((int) Math.floor(this.getStars()*0.5));
+    this.reduceStarsBy((int) Math.floor(this.getStars()*0.5));
+  }
 
+  /**
+   * Increases Stars if a player is defeated by a Wild Unit
+   */
+  @Override
+  public void increaseStarsByWildUnit(WildUnit winner){
+    winner.increaseStarsBy((int) Math.floor(this.getStars()*0.5));
+    this.reduceStarsBy((int) Math.floor(this.getStars()*0.5));
+  }
+  /**
+   * Increases Stars if a player is defeated by a Boss Unit
+   */
+  @Override
+  public void increaseStarsByBossUnit(BossUnit winner){
+    winner.increaseStarsBy((int) Math.floor(this.getStars()*0.5));
+    this.reduceStarsBy((int) Math.floor(this.getStars()*0.5));
   }
   /**
    *compares two objects

@@ -28,4 +28,8 @@ public interface ICharacter {
     void increaseStarsBy(ICharacter ICharacter);
 
     void increaseStarsByPlayer(Player player);
+
+    void increaseStarsByWildUnit(WildUnit wildunit);
+
+    void increaseStarsByBossUnit(BossUnit bossunit);
 }

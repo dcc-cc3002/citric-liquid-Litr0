@@ -20,7 +20,7 @@ public class PlayerTest {
   private final static String WILD_NAME = "Chicken";
   private WildUnit chicken;
   private final static String PLAYER_NAME_2 = "Marc";
-  private WildUnit marc;
+  private Player marc;
   private final static String BOSS_NAME = "Store Manager";
   private BossUnit storemanager;
 
@@ -40,8 +40,8 @@ public class PlayerTest {
   private BossUnit getStoremanager(){
     return new BossUnit(BOSS_NAME,8,3,2,-1);
   }
-  private WildUnit getMarc(){
-    return new WildUnit(PLAYER_NAME_2,4,1,1,-1);
+  private Player getMarc(){
+    return new Player(PLAYER_NAME_2,4,1,1,-1);
   }
 
   @Test
@@ -112,10 +112,28 @@ public class PlayerTest {
     int SuguriStars = suguri.getStars();
     int MarcStars = marc.getStars();
     marc.increaseStarsBy(suguri);
-    int expectedMarcStars = (int) (MarcStars + Math.ceil(SuguriStars*0.5));
-    int expectedSuguriStars = (int) (SuguriStars - Math.ceil(SuguriStars*0.5));
+    int expectedMarcStars = (int) (MarcStars + Math.floor(SuguriStars*0.5));
+    int expectedSuguriStars = (int) (SuguriStars - Math.floor(SuguriStars*0.5));
     Assertions.assertEquals(expectedMarcStars,marc.getStars());
     Assertions.assertEquals(expectedSuguriStars,suguri.getStars());
+
+
+    int SuguriStars2 = suguri.getStars();
+    int ChickenStars = chicken.getStars();
+    chicken.increaseStarsBy(suguri);
+    int expectedChickenStars = (int) (ChickenStars + Math.floor(SuguriStars2*0.5));
+    int expectedSuguriStars2 = (int) (SuguriStars2 - Math.floor(SuguriStars2*0.5));
+    Assertions.assertEquals(expectedChickenStars,chicken.getStars());
+    Assertions.assertEquals(expectedSuguriStars2,suguri.getStars());
+
+    int SuguriStars3 = suguri.getStars();
+    int StoreManagerStars = storemanager.getStars();
+    storemanager.increaseStarsBy(suguri);
+    int expectedStoreManagerStars = (int) (StoreManagerStars + Math.floor(SuguriStars3*0.5));
+    int expectedSuguriStars3 = (int) (SuguriStars3 - Math.floor(SuguriStars3*0.5));
+    Assertions.assertEquals(expectedStoreManagerStars,storemanager.getStars());
+    Assertions.assertEquals(expectedSuguriStars3,suguri.getStars());
+
   }
 
   @RepeatedTest(100)

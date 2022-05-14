@@ -17,6 +17,27 @@ public class BossUnit extends AbstractCharacter {
     public BossUnit(String name, int hp, final int atk,final int def, final int evd){
         super(name, hp, atk, def, evd);
     }
+
+    @Override
+    public void increaseStarsBy(ICharacter ICharacter) {
+        ICharacter.increaseStarsByBossUnit(this);
+    }
+
+    @Override
+    public void increaseStarsByPlayer(Player player) {
+
+    }
+
+    @Override
+    public void increaseStarsByWildUnit(WildUnit wildunit) {
+
+    }
+
+    @Override
+    public void increaseStarsByBossUnit(BossUnit winner) {
+
+    }
+
     @Override
     public BossUnit copy(){
         return new BossUnit(this.getName(), this.getMaxHp(), this.getAtk(), this.getDef(), this.getEvd());
