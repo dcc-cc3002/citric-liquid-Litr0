@@ -19,26 +19,42 @@ public class WildUnit extends AbstractCharacter{
     public WildUnit(String name, int hp, final int atk,final int def, final int evd){
         super(name, hp, atk, def, evd);
     }
-
+    /**
+     * Increases Stars to the Character that wins the battle
+     */
     @Override
     public void increaseStarsBy(ICharacter ICharacter) {
         ICharacter.increaseStarsByWildUnit(this);
     }
-
+    /**
+     * Increases Stars if a Wild Unit is defeated by a Player
+     */
     @Override
     public void increaseStarsByPlayer(Player winner){
+        winner.increaseStarsBy(this.getStars());
+        this.reduceStarsBy(this.getStars());
     }
-
-    @Override
     /**
-     * Increases Stars if a player is defeated by a Wild Unit
+     * Increases Stars if a Wild Unit is defeated by a Wild Unit (this function needs to exist but in the game it won't be used,
+     * because battles are between Players or a Player v/s an NPC (Boss or Wild Unit), so it won't do anything)
      */
+    @Override
     public void increaseStarsByWildUnit(WildUnit winner){
     }
-
+    /**
+     * Increases Stars if a Wild Unit is defeated by a Boss Unit (this function needs to exist but in the game it won't be used,
+     * because battles are between Players or a Player v/s an NPC (Boss or Wild Unit), so it won't do anything)
+     */
     @Override
     public void increaseStarsByBossUnit(BossUnit winner) {
-
+    }
+    /**
+     * increases a player wins if it's beats a Wild Unit
+     * @param player
+     */
+    @Override
+    public void increaseWinsByPlayer(Player player) {
+        player.increaseWinsBy(1);
     }
 
     @Override

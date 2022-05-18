@@ -10,7 +10,7 @@ package cl.uchile.dcc.citricliquid.model.Character;
  */
 public class Player extends AbstractCharacter {
   private int normaLevel;
-
+  private int wins;
   /**
    * Creates a new character.
    *
@@ -29,6 +29,13 @@ public class Player extends AbstractCharacter {
                 final int evd) {
     super(name, hp, atk, def, evd);
     normaLevel = 1;
+    wins = 0;
+  }
+  /**
+   * Return the character's wins
+   */
+  public int getWins() {
+    return wins;
   }
   /**
    * Returns the current norma level.
@@ -76,6 +83,7 @@ public class Player extends AbstractCharacter {
     winner.increaseStarsBy((int) Math.floor(this.getStars()*0.5));
     this.reduceStarsBy((int) Math.floor(this.getStars()*0.5));
   }
+
   /**
    *compares two objects
    */
@@ -98,11 +106,25 @@ public class Player extends AbstractCharacter {
            && getName().equals(player.getName());
   }
 
-
   /**
    * Returns a copy of this character.
    */
   public Player copy() {
     return new Player(name, maxHp, atk, def, evd);
+  }
+
+
+  /**
+   * increases wins if a player beats a Character
+   * @param ICharacter
+   */
+  public void increaseWinsBy(ICharacter ICharacter) {
+    ICharacter.increaseWinsByPlayer(this);
+  }
+  public void increaseWinsByPlayer(Player player){
+    player.increaseWinsBy(2);
+  }
+  public void increaseWinsBy(int amount){
+    this.wins += amount;
   }
 }

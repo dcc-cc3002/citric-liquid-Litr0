@@ -117,7 +117,6 @@ public class PlayerTest {
     Assertions.assertEquals(expectedMarcStars,marc.getStars());
     Assertions.assertEquals(expectedSuguriStars,suguri.getStars());
 
-
     int SuguriStars2 = suguri.getStars();
     int ChickenStars = chicken.getStars();
     chicken.increaseStarsBy(suguri);
@@ -134,6 +133,27 @@ public class PlayerTest {
     Assertions.assertEquals(expectedStoreManagerStars,storemanager.getStars());
     Assertions.assertEquals(expectedSuguriStars3,suguri.getStars());
 
+  }
+
+  @Test
+  public void increaseWinsByTest(){
+    int SuguriWins = suguri.getWins();
+    int MarcWins = marc.getWins();
+    int ExpectedSuguriWins = SuguriWins;
+    int ExpectedMarcWins = MarcWins + 2;
+    marc.increaseWinsBy(suguri);
+    Assertions.assertEquals(ExpectedMarcWins, marc.getWins());
+    Assertions.assertEquals(ExpectedSuguriWins, suguri.getWins());
+
+    int SuguriWins2 = suguri.getWins();
+    int ExpectedSuguriWins2 = SuguriWins2 + 1;
+    suguri.increaseWinsBy(chicken);
+    Assertions.assertEquals(ExpectedSuguriWins2,suguri.getWins());
+
+    int SuguriWins3 = suguri.getWins();
+    int ExpectedSuguriWins3 = SuguriWins3 + 3;
+    suguri.increaseWinsBy(storemanager);
+    Assertions.assertEquals(ExpectedSuguriWins3,suguri.getWins());
   }
 
   @RepeatedTest(100)

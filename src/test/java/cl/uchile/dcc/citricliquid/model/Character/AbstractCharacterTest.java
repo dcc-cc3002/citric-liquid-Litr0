@@ -55,7 +55,6 @@ public class AbstractCharacterTest {
         Assertions.assertNotEquals(chicken,new Object());
         Assertions.assertNotSame(chicken,getChicken());
         Assertions.assertEquals(0,chicken.getStars());
-        Assertions.assertEquals(0,chicken.getWins());
 
         final var expectedStoreManager = getStoremanager();
         Assertions.assertEquals(expectedStoreManager,storemanager);
@@ -64,7 +63,6 @@ public class AbstractCharacterTest {
         Assertions.assertNotEquals(storemanager,new Object());
         Assertions.assertNotSame(storemanager,getStoremanager());
         Assertions.assertEquals(0,storemanager.getStars());
-        Assertions.assertEquals(0,storemanager.getWins());
     }
 
     @Test

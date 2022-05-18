@@ -15,7 +15,6 @@ public abstract class AbstractCharacter implements ICharacter {
     protected final int evd;
     protected int stars;
     protected int currentHp;
-    protected int wins;
 
 
     /**
@@ -38,7 +37,6 @@ public abstract class AbstractCharacter implements ICharacter {
         this.def = def;
         this.evd = evd;
         stars = 0;
-        wins = 0;
         random = new Random();
     }
 
@@ -91,12 +89,6 @@ public abstract class AbstractCharacter implements ICharacter {
         return currentHp;
     }
 
-    /**
-     * Return the character's wins
-     */
-    public int getWins() {
-        return wins;
-    }
     /**
      * Sets the current character's hit points.
      *
@@ -192,13 +184,12 @@ public abstract class AbstractCharacter implements ICharacter {
                 && getEvd() == that.getEvd()
                 && getStars() == that.getStars()
                 && getCurrentHp() == that.getCurrentHp()
-                && getWins() == that.getWins()
                 && getName().equals(that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(random, getName(), getMaxHp(), getAtk(), getDef(), getEvd(), getStars(), getCurrentHp(), getWins());
+        return Objects.hash(random, getName(), getMaxHp(), getAtk(), getDef(), getEvd(), getStars(), getCurrentHp());
     }
 
     public abstract ICharacter copy();

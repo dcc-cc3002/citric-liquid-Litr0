@@ -23,6 +23,7 @@ public class WildUnitTest {
       suguri = getSuguri();
       chicken = getChicken();
       storemanager = getStoremanager();
+      seagull = getSeagull();
    }
    private Player getSuguri(){
       return new Player(PLAYER_NAME, 4, 1, -1, 2);
@@ -84,4 +85,18 @@ public class WildUnitTest {
          Assertions.assertEquals(chickenHP,chicken.getCurrentHp());
       }
    }
+   @Test
+   public void increaseStarsByTest(){
+      chicken.increaseStarsBy(3);
+      suguri.increaseStarsBy(7);
+
+      int ChickenStars = chicken.getStars();
+      int SuguriStars = suguri.getStars();
+      suguri.increaseStarsBy(chicken);
+      int ExpectedChickenStars = 0;
+      int ExpectedSuguriStars = ChickenStars + SuguriStars;
+      Assertions.assertEquals(ExpectedChickenStars,chicken.getStars());
+      Assertions.assertEquals(ExpectedSuguriStars,suguri.getStars());
+   }
+
 }

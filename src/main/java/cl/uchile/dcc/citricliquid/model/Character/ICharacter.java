@@ -1,6 +1,8 @@
 package cl.uchile.dcc.citricliquid.model.Character;
 
 public interface ICharacter {
+    void increaseWinsByPlayer(Player player);
+
     String getName();
 
     int getMaxHp();

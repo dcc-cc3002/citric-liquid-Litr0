@@ -79,5 +79,18 @@ class BossUnitTest {
             Assertions.assertEquals(storemanagerHP,storemanager.getCurrentHp());
         }
     }
+    @Test
+    public void increaseStarsByTest(){
+        suguri.increaseStarsBy(5);
+        storemanager.increaseStarsBy(7);
+
+        int StoreManagerStars = storemanager.getStars();
+        int SuguriStars = suguri.getStars();
+        suguri.increaseStarsBy(storemanager);
+        int expectedStoreManagerStars = 0;
+        int ExpectedSuguriStars = StoreManagerStars + SuguriStars;
+        Assertions.assertEquals(expectedStoreManagerStars,storemanager.getStars());
+        Assertions.assertEquals(ExpectedSuguriStars,suguri.getStars());
+    }
 
 }
