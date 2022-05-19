@@ -44,10 +44,22 @@ public class PlayerTest {
     return new Player(PLAYER_NAME_2,4,1,1,-1);
   }
 
+  /**
+   * here we test normaCheck and NormaClear
+   */
   @Test
   public void normaClearTest() {
-    suguri.normaClear();
+    suguri.increaseStarsBy(10);
+    suguri.normaCheck();
     Assertions.assertEquals(2, suguri.getNormaLevel());
+    marc.normaClear();
+    Assertions.assertEquals(2,marc.getNormaLevel());
+    marc.increaseWinsBy(2);
+    marc.setObjectiveNorma(ObjectiveNorma.WINS);
+    marc.normaCheck();
+    Assertions.assertEquals(3,marc.getNormaLevel());
+    suguri.normaCheck();
+    Assertions.assertEquals(2,suguri.getNormaLevel());
   }
 
   @Test
@@ -159,7 +171,7 @@ public class PlayerTest {
   @RepeatedTest(100)
   public void normaClearConsistencyTest() {
     final long testSeed = new Random().nextLong();
-    // We're gonna test for 0 to 5 norma clears
+    // We're going to test for 0 to 5 norma clears
     final int iterations = Math.abs(new Random(testSeed).nextInt(6));
     final int expectedNorma = suguri.getNormaLevel() + iterations;
     for (int it = 0; it < iterations; it++) {

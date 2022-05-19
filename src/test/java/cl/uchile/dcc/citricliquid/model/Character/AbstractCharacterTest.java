@@ -47,6 +47,10 @@ public class AbstractCharacterTest {
         Assertions.assertNotSame(suguri,getSuguri());
         Assertions.assertEquals(0,suguri.getStars());
         Assertions.assertEquals(0,suguri.getWins());
+        Assertions.assertEquals(ObjectiveNorma.STARS,suguri.getObjectiveNorma());
+        suguri.normaClear();
+        suguri.setObjectiveNorma(ObjectiveNorma.WINS);
+        Assertions.assertEquals(ObjectiveNorma.WINS,suguri.getObjectiveNorma());
 
         final var expectedChicken = getChicken();
         Assertions.assertEquals(expectedChicken,chicken);

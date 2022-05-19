@@ -1,5 +1,7 @@
 package cl.uchile.dcc.citricliquid.model.Character;
 
+import java.util.List;
+
 /**
  * This class represents a player in the game 99.7% Citric Liquid.
  *
@@ -11,6 +13,7 @@ package cl.uchile.dcc.citricliquid.model.Character;
 public class Player extends AbstractCharacter {
   private int normaLevel;
   private int wins;
+  private ObjectiveNorma objectiveNorma;
   /**
    * Creates a new character.
    *
@@ -29,8 +32,26 @@ public class Player extends AbstractCharacter {
                 final int evd) {
     super(name, hp, atk, def, evd);
     normaLevel = 1;
+    this.objectiveNorma = ObjectiveNorma.STARS;
     wins = 0;
   }
+
+  /**
+   * Returns the current objective
+   * @return
+   */
+  public ObjectiveNorma getObjectiveNorma() {
+    return objectiveNorma;
+  }
+
+  /**
+   * sets a new objective
+   * @param objectiveNorma
+   */
+  public void setObjectiveNorma(ObjectiveNorma objectiveNorma) {
+    this.objectiveNorma = objectiveNorma;
+  }
+
   /**
    * Return the character's wins
    */
@@ -121,10 +142,48 @@ public class Player extends AbstractCharacter {
   public void increaseWinsBy(ICharacter ICharacter) {
     ICharacter.increaseWinsByPlayer(this);
   }
+
+  /**
+   * increases wins if a player beats a player
+   * @param player
+   */
   public void increaseWinsByPlayer(Player player){
     player.increaseWinsBy(2);
   }
   public void increaseWinsBy(int amount){
     this.wins += amount;
+  }
+
+  /**
+   * checks if the player can level up the norma
+   */
+  public void normaCheck() {
+    if(this.objectiveNorma == ObjectiveNorma.WINS){
+      normaCheckWins();
+    }
+    if(this.objectiveNorma == ObjectiveNorma.STARS){
+      normaCheckStars();
+    }
+  }
+
+  /**
+   * checks if the player can level up the norma by the stars objective
+   */
+  public void normaCheckStars(){
+    List<Integer> starsObjective = List.of(10,30,70,120,200);
+    int stars = this.getStars();
+    if (starsObjective.get((this.normaLevel)-1) <= stars){
+      normaClear();
+    }
+  }
+  /**
+   * checks if the player can level up the norma by the wins objective
+   */
+  public void normaCheckWins(){
+    List<Integer> winsObjective = List.of(0,2,5,9,14);
+    int wins = this.getWins();
+    if (winsObjective.get((this.normaLevel)-1) <= wins){
+      normaClear();
+    }
   }
 }
