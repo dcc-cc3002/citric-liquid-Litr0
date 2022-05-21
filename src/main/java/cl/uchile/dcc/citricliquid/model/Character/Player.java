@@ -1,5 +1,8 @@
 package cl.uchile.dcc.citricliquid.model.Character;
 
+import cl.uchile.dcc.citricliquid.model.board.HomePanel;
+import cl.uchile.dcc.citricliquid.model.board.IPanel;
+
 import java.util.List;
 
 /**
@@ -14,6 +17,7 @@ public class Player extends AbstractCharacter {
   private int normaLevel;
   private int wins;
   private ObjectiveNorma objectiveNorma;
+  private IPanel homepanel;
   /**
    * Creates a new character.
    *
@@ -34,6 +38,7 @@ public class Player extends AbstractCharacter {
     normaLevel = 1;
     this.objectiveNorma = ObjectiveNorma.STARS;
     wins = 0;
+    this.homepanel = null;
   }
 
   /**
@@ -63,6 +68,13 @@ public class Player extends AbstractCharacter {
    */
   public int getNormaLevel() {
     return normaLevel;
+  }
+
+  /**
+   * Returns the Home Panel
+   */
+  public IPanel getHomepanel(){
+    return homepanel;
   }
 
   /**
@@ -124,7 +136,8 @@ public class Player extends AbstractCharacter {
            && getWins() == player.getWins()
            && getStars() == player.getStars()
            && getCurrentHp() == player.getCurrentHp()
-           && getName().equals(player.getName());
+           && getName().equals(player.getName())
+           && getHomepanel() == player.getHomepanel();
   }
 
   /**
@@ -184,6 +197,17 @@ public class Player extends AbstractCharacter {
     int wins = this.getWins();
     if (winsObjective.get((this.normaLevel)-1) <= wins){
       normaClear();
+    }
+  }
+
+  /**
+   * Sets the player's home panel
+   * @param panel
+   */
+  public void SetHomePanel(HomePanel panel) {
+    if(panel.owner == null) {
+      this.homepanel = panel;
+      panel.setOwner(this);
     }
   }
 }
