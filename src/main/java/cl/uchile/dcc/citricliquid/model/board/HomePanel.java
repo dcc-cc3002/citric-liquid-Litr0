@@ -13,8 +13,8 @@ public class HomePanel extends AbstractPanel{
      *
      * @param type the type of the panel.
      */
-    public HomePanel(PanelType type) {
-        super(type);
+    public HomePanel(PanelType type, final int id) {
+        super(type,id);
         this.owner = null;
     }
 
@@ -47,7 +47,7 @@ public class HomePanel extends AbstractPanel{
      */
     @Override
     public void activatedBy(@NotNull Player player) {
-        if (player.equals(this.getOwner()) == true ) {
+        if (player.equals(this.getOwner())) {
             player.normaCheck();
             player.setCurrentHp(player.getCurrentHp() + 1);
         }

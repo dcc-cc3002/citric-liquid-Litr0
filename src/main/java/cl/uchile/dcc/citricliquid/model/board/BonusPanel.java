@@ -9,8 +9,8 @@ public class BonusPanel extends AbstractPanel{
      *
      * @param type the type of the panel.
      */
-    public BonusPanel(PanelType type) {
-        super(type);
+    public BonusPanel(PanelType type, final int id) {
+        super(type,id);
     }
     /**
      * Increases the player's star count by the D6 roll multiplied by the maximum between the player's

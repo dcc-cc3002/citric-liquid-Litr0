@@ -17,15 +17,17 @@ public abstract class AbstractPanel implements IPanel {
   private final PanelType type;
   private final Set<AbstractPanel> nextPanels = new HashSet<>();
   private final List<Player> playersList = new ArrayList<>();
-
+  private final int id;
 
   /**
    * Creates a new panel.
    *
    * @param type the type of the panel.
+   * @param id id of the panel
    */
-  public AbstractPanel(final PanelType type) {
+  public AbstractPanel(final PanelType type, final int id ) {
     this.type = type;
+    this.id = id;
   }
 
 
@@ -71,7 +73,11 @@ public abstract class AbstractPanel implements IPanel {
     if (this == o) return true;
     if (!(o instanceof AbstractPanel)) return false;
     AbstractPanel that = (AbstractPanel) o;
-    return getType() == that.getType() && getNextPanels().equals(that.getNextPanels()) && getPlayersList().equals(that.getPlayersList());
+    return Objects.equals(nextPanels,that.nextPanels)
+            && Objects.equals(playersList,that.playersList)
+            && Objects.equals(type,that.type)
+            && id == that.id;
+
   }
 
   @Override

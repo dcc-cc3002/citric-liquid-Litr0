@@ -9,8 +9,8 @@ public class EncounterPanel extends AbstractPanel{
      *
      * @param type the type of the panel.
      */
-    public EncounterPanel(PanelType type) {
-        super(type);
+    public EncounterPanel(PanelType type, final int id) {
+        super(type,id);
     }
 
     /**

@@ -9,8 +9,8 @@ public class BossPanel extends AbstractPanel{
      *
      * @param type the type of the panel.
      */
-    public BossPanel(PanelType type) {
-        super(type);
+    public BossPanel(PanelType type, final int id) {
+        super(type,id);
     }
 
     /**
