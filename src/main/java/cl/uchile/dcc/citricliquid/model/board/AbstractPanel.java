@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Class that represents a panel in the board of the game.
  *
- * @author <a href="mailto:ignacio.slater@ug.uchile.cl">Ignacio Slater Muñoz</a>.
+ * @author <a href="mailto:gonzalo.sobarzo@ug.uchile.cl">Gonzalo Sobarzo A.</a>.
  * @version 1.1.222804
  * @since 1.0
  */

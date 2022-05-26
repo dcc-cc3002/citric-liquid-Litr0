@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This class represents a player in the game 99.7% Citric Liquid.
  *
- * @author <a href="mailto:ignacio.slater@ug.uchile.cl">Ignacio Slater
+ * @author <a href="mailto:gonzalo.sobarzo@ug.uchile.cl">Gonzalo Sobarzo A.</a>.
  *     Muñoz</a>.
  * @version 1.1.222804
  * @since 1.0

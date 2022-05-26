@@ -101,12 +101,7 @@ class PanelTest {
     assertEquals(suguri.getMaxHp(), suguri.getCurrentHp());
     testHomePanel.activatedBy(suguri);
     assertEquals(suguri.getMaxHp(), suguri.getCurrentHp());
-
     suguri.setCurrentHp(1);
-    testHomePanel.activatedBy(suguri);
-    assertEquals(1, suguri.getCurrentHp());
-
-    suguri.SetHomePanel(testHomePanel);
     testHomePanel.activatedBy(suguri);
     assertEquals(2, suguri.getCurrentHp());
 
