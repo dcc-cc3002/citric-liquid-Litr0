@@ -2,7 +2,7 @@ package cl.uchile.dcc.citricliquid.model.Character;
 
 public class BossUnit extends AbstractCharacter {
     /**
-     * Creates a new character
+     * Creates a new character.
      * @param name
      *         the character's name.
      * @param hp

@@ -9,7 +9,6 @@ import java.util.List;
  * This class represents a player in the game 99.7% Citric Liquid.
  *
  * @author <a href="mailto:gonzalo.sobarzo@ug.uchile.cl">Gonzalo Sobarzo A.</a>.
- *     Muñoz</a>.
  * @version 1.1.222804
  * @since 1.0
  */
@@ -144,7 +143,7 @@ public class Player extends AbstractCharacter {
    * Returns a copy of this character.
    */
   public Player copy() {
-    return new Player(name, maxHp, atk, def, evd);
+    return new Player(getName(), getMaxHp(), getAtk(), getDef(), getEvd());
   }
 
 
@@ -205,7 +204,7 @@ public class Player extends AbstractCharacter {
    * @param panel
    */
   public void SetHomePanel(HomePanel panel) {
-    if(panel.owner == null) {
+    if (panel.owner == null) {
       this.homepanel = panel;
       panel.setOwner(this);
     }

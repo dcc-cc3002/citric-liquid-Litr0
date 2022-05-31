@@ -25,7 +25,7 @@ public abstract class AbstractPanel implements IPanel {
    * @param type the type of the panel.
    * @param id id of the panel
    */
-  public AbstractPanel(final PanelType type, final int id ) {
+  public AbstractPanel(final PanelType type, final int id) {
     this.type = type;
     this.id = id;
   }
@@ -73,9 +73,9 @@ public abstract class AbstractPanel implements IPanel {
     if (this == o) return true;
     if (!(o instanceof AbstractPanel)) return false;
     AbstractPanel that = (AbstractPanel) o;
-    return Objects.equals(nextPanels,that.nextPanels)
-            && Objects.equals(playersList,that.playersList)
-            && Objects.equals(type,that.type)
+    return Objects.equals(nextPanels, that.nextPanels)
+            && Objects.equals(playersList, that.playersList)
+            && Objects.equals(type, that.type)
             && id == that.id;
 
   }

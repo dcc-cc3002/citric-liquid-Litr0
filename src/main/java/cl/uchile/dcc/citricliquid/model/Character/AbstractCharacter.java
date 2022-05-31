@@ -4,11 +4,11 @@ import java.util.Objects;
 import java.util.Random;
 
 /**
- * This class represent the abstract Character of the game
+ * This class represent the abstract Character of the game.
  */
 public abstract class AbstractCharacter implements ICharacter {
     private final Random random;
-    protected final String name;
+    private final String name;
     protected int maxHp;
     protected final int atk;
     protected int def;
@@ -18,7 +18,7 @@ public abstract class AbstractCharacter implements ICharacter {
 
 
     /**
-     * Creates a new character
+     * Creates a new character.
      * @param name
      *         the character's name.
      * @param hp
@@ -189,7 +189,8 @@ public abstract class AbstractCharacter implements ICharacter {
 
     @Override
     public int hashCode() {
-        return Objects.hash(random, getName(), getMaxHp(), getAtk(), getDef(), getEvd(), getStars(), getCurrentHp());
+        return Objects.hash(random, getName(), getMaxHp(), getAtk(), getDef(),
+                getEvd(), getStars(), getCurrentHp());
     }
 
     public abstract ICharacter copy();
