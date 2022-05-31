@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public abstract class AbstractCharacter implements ICharacter {
     private final Random random;
-    protected final String name;
+    private final String name;
     protected int maxHp;
     protected final int atk;
     protected int def;
