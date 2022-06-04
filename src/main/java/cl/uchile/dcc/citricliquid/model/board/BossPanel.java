@@ -24,5 +24,6 @@ public class BossPanel extends AbstractPanel{
      */
     @Override
     public void activatedBy(@NotNull Player player) {
+        System.out.println("Boss Battle activated");
     }
 }
