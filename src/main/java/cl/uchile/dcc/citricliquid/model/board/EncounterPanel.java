@@ -31,6 +31,7 @@ public class EncounterPanel extends AbstractPanel{
         possibleEnemies.add(new WildUnit("Robo Ball",3,-1,1,-1));
         possibleEnemies.add(new WildUnit("Seagull",3,1,-1,-1));
         WildUnit enemy = possibleEnemies.get(mini_roll);
+        System.out.println("Wild Unit Battle activated");
         //player.battle(enemy); battle function still not implemented, maybe next time have an independent Wild Unit battle function same with the Boss Unit
 
     }

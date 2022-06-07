@@ -104,6 +104,8 @@ class PanelTest {
     suguri.setCurrentHp(1);
     testHomePanel.activatedBy(suguri);
     assertEquals(2, suguri.getCurrentHp());
+    testHomePanel.setOwner(suguri);
+    assertEquals(suguri,testHomePanel.getOwner());
 
   }
 
@@ -146,6 +148,9 @@ class PanelTest {
                    "Test failed with seed: " + testSeed);
       suguri.normaClear();
     }
+  }
+  @Test
+  public void EncounterPanelTest(){
   }
   // endregion
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This folder contains libraries copied from the "citricliquid" project.
+=======
+This folder contains libraries copied from the "citricliquid.iml" project.
+>>>>>>> Tarea_1
 It is managed by the CheckStyle-IDEA IDE plugin.
 Do not modify this folder while the IDE is running.
 When the IDE is stopped, you may delete this folder at any time. It will be recreated as needed.

@@ -8,7 +8,11 @@ import java.util.List;
 /**
  * This class represents a player in the game 99.7% Citric Liquid.
  *
+<<<<<<< HEAD
  * @author <a href="mailto:gonzalo.sobarzo@ug.uchile.cl">Gonzalo Sobarzo A.</a>.
+=======
+ * @author <a href="mailto:gonzalo.sobarzo@ug.uchile.cl">Gonzalo Sobarzo A.</a>.*
+>>>>>>> Tarea_1
  * @version 1.1.222804
  * @since 1.0
  */
@@ -41,7 +45,7 @@ public class Player extends AbstractCharacter {
   }
 
   /**
-   * Returns the current objective
+   * Returns the current objective.
    * @return
    */
   public ObjectiveNorma getObjectiveNorma() {
