@@ -18,6 +18,10 @@ public abstract class AbstractPanel implements IPanel {
   private final Set<AbstractPanel> nextPanels = new HashSet<>();
   private final List<Player> playersList = new ArrayList<>();
   private final int id;
+  private IPanel up;
+  private IPanel down;
+  private IPanel right;
+  private IPanel left;
 
   /**
    * Creates a new panel.
@@ -51,13 +55,76 @@ public abstract class AbstractPanel implements IPanel {
   public List<Player> getPlayersList() {
     return playersList;
   }
+
+  /**
+   * Returns the id.
+   */
+  public int getId(){
+    return id;
+  }
+
+  /**
+   * Set's a panel above
+   */
+  public void setUp(IPanel panel){
+    this.up = panel;
+  }
+  /**
+   * Set's a panel Down
+   */
+  public void setDown(IPanel panel){
+    this.down = panel;
+  }
+
+  /**
+   * Set's a panel right
+   */
+  public void seRight(IPanel panel){
+    this.right = panel;
+  }
+
+  /**
+   * Set's a panel left
+   */
+  public void setLeft(IPanel panel){
+    this.left = panel;
+  }
+
+  /**
+   * Get's the panel above
+   */
+  public IPanel getUp(){
+    return up;
+  }
+  /**
+   * Get's the panel down
+   */
+  public IPanel getDown(){
+    return down;
+  }
+  /**
+   * Get's the panel right
+   */
+  public IPanel getRight(){
+    return right;
+  }
+  /**
+   * Get's the panel left
+   */
+  public IPanel getLeft(){
+    return left;
+  }
+
+
   /**
    * Adds a new adjacent panel to this one.
    *
    * @param panel the panel to be added.
    */
   public void addNextPanel(final AbstractPanel panel) {
-    nextPanels.add(panel);
+    if (this.getId() != panel.getId()) {
+      nextPanels.add(panel);
+    }
   }
 
   /**
@@ -76,6 +143,10 @@ public abstract class AbstractPanel implements IPanel {
     return Objects.equals(nextPanels, that.nextPanels)
             && Objects.equals(playersList, that.playersList)
             && Objects.equals(type, that.type)
+            && Objects.equals(left, that.left)
+            && Objects.equals(right, that.right)
+            && Objects.equals(up, that.up)
+            && Objects.equals(down, that.down)
             && id == that.id;
 
   }
@@ -93,8 +164,14 @@ public abstract class AbstractPanel implements IPanel {
     this.playersList.add(player);
   }
 
+  /**
+   * Removes a player from the panel
+   * @param player
+   */
   @Override
   public void removePlayer(Player player) {
     this.playersList.remove(player);
   }
 }
+
+

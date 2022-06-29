@@ -149,8 +149,5 @@ class PanelTest {
       suguri.normaClear();
     }
   }
-  @Test
-  public void EncounterPanelTest(){
-  }
   // endregion
 }

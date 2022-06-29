@@ -148,7 +148,18 @@ public class AbstractCharacterTest {
                 roll3 + "is not in [1, 6]" + System.lineSeparator()
                         + "Test failed with random seed: " + testSeed3);
     }
-
+    @Test
+    public void KOtest(){
+        Assertions.assertFalse(suguri.KO_Status());
+        Assertions.assertFalse(chicken.KO_Status());
+        Assertions.assertFalse(storemanager.KO_Status());
+        suguri.setCurrentHp(0);
+        chicken.setCurrentHp(0);
+        storemanager.setCurrentHp(0);
+        Assertions.assertTrue(suguri.KO_Status());
+        Assertions.assertTrue(chicken.KO_Status());
+        Assertions.assertTrue(storemanager.KO_Status());
+    }
     // endregion
 
 

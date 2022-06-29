@@ -168,6 +168,16 @@ public abstract class AbstractCharacter implements ICharacter {
     }
 
     /**
+     * See if Unit is KO.
+     */
+    public boolean KO_Status(){
+        if (this.getCurrentHp() != 0){
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Equals: compares two objects
      */
     @Override
