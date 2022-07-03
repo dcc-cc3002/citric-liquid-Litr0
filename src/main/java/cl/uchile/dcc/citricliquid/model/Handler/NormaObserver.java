@@ -17,7 +17,7 @@ public class NormaObserver {
     public NormaObserver(Controller controller){
         this.controller = controller;
     }
-    @Override
+
     public void propertyChange(PropertyChangeEvent changeEvent){
     }
 }

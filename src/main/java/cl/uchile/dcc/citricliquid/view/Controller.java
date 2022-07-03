@@ -30,7 +30,18 @@ public class Controller {
 
     }
 
+    /**
+     * set's the state of the controller.
+     * @param state
+     */
+    public void SetState(State state) {
+        this.state = state;
+    }
 
-
-
+    /**
+     * Getter for the State.
+     */
+    public State getState(){
+        return state;
+    }
 }
