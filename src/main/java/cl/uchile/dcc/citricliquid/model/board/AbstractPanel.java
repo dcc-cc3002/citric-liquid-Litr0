@@ -79,7 +79,7 @@ public abstract class AbstractPanel implements IPanel {
   /**
    * Set's a panel right
    */
-  public void seRight(IPanel panel){
+  public void setRight(IPanel panel){
     this.right = panel;
   }
 

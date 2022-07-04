@@ -22,6 +22,14 @@ public class ChoosePathState extends State {
     public void toWaitHomeState(){
         ChangeState(new WaitHomeState());
     }
+    @Override
+    public void toEndTurnState(){
+        ChangeState(new EndTurnState());
+    }
+    @Override
+    public void toChoosePathState(){
+        ChangeState(new ChoosePathState());
+    }
 
 
 }

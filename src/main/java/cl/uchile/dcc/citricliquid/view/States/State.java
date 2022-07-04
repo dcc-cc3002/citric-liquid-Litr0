@@ -137,4 +137,11 @@ public class State {
 
     }
 
+    public void revive(){
+        if(isK_O()){
+           controller.revive();
+        }
+    }
+
+
 }

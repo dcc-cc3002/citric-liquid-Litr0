@@ -62,6 +62,19 @@ class PanelTest {
     assertEquals(expectedHomePanel, testHomePanel);
     assertEquals(expectedNeutralPanel, testNeutralPanel);
     assertEquals(expectedNeutralPanel2, testNeutralPanel2);
+    testNeutralPanel.addNextPanel(testHomePanel);
+    testNeutralPanel.addNextPanel(testBonusPanel);
+    testNeutralPanel.addNextPanel(testBossPanel);
+    testNeutralPanel.addNextPanel(testNeutralPanel2);
+    testNeutralPanel.setUp(testHomePanel);
+    testNeutralPanel.setDown(testBonusPanel);
+    testNeutralPanel.setRight(testBossPanel);
+    testNeutralPanel.setLeft(testNeutralPanel2);
+    assertEquals(testHomePanel,testNeutralPanel.getUp());
+    assertEquals(testBonusPanel,testNeutralPanel.getDown());
+    assertEquals(testBossPanel,testNeutralPanel.getRight());
+    assertEquals(testNeutralPanel2,testNeutralPanel.getLeft());
+
   }
 
   @Test

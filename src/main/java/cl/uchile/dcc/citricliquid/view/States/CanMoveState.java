@@ -24,5 +24,10 @@ public class CanMoveState extends State {
         ChangeState(new WaitHomeState());
     }
 
+    @Override
+    public void toEndTurnState(){
+        ChangeState(new EndTurnState());
+    }
+
 
 }

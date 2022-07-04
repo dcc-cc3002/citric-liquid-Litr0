@@ -21,6 +21,7 @@ public class Player extends AbstractCharacter {
   private int wins;
   private ObjectiveNorma objectiveNorma;
   private IPanel homepanel;
+  private IPanel actualPanel;
   /**
    * Creates a new character.
    *
@@ -42,6 +43,7 @@ public class Player extends AbstractCharacter {
     this.objectiveNorma = ObjectiveNorma.STARS;
     wins = 0;
     this.homepanel = null;
+    this.actualPanel = null;
   }
 
   /**
@@ -78,6 +80,13 @@ public class Player extends AbstractCharacter {
    */
   public IPanel getHomepanel(){
     return homepanel;
+  }
+
+  /**
+   * Return's the actual panel of a player.
+   */
+  public IPanel getActualPanel(){
+    return actualPanel;
   }
 
   /**
@@ -212,5 +221,12 @@ public class Player extends AbstractCharacter {
       this.homepanel = panel;
       panel.setOwner(this);
     }
+  }
+
+  /**
+   * Set's teh actual Panel.
+   */
+  public void SetActualPanel(IPanel panel){
+    this.actualPanel = panel;
   }
 }
