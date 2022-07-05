@@ -14,32 +14,7 @@ public class HomePanel extends AbstractPanel{
      * @param type the type of the panel.
      */
     public HomePanel(PanelType type, final int id) {
-        super(type,id);
-        this.owner = null;
-    }
-
-    public Player getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Player owner) {
-        if(this.owner == null) {
-            this.owner = owner;
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HomePanel)) return false;
-        if (!super.equals(o)) return false;
-        HomePanel homePanel = (HomePanel) o;
-        return Objects.equals(getOwner(), homePanel.getOwner());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getOwner());
+        super(type, id);
     }
 
     /**

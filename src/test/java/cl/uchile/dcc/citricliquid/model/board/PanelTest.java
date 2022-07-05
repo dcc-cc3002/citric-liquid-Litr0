@@ -117,8 +117,6 @@ class PanelTest {
     suguri.setCurrentHp(1);
     testHomePanel.activatedBy(suguri);
     assertEquals(2, suguri.getCurrentHp());
-    testHomePanel.setOwner(suguri);
-    assertEquals(suguri,testHomePanel.getOwner());
 
   }
 

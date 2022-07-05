@@ -1,7 +1,9 @@
 package cl.uchile.dcc.citricliquid.view;
 
+import cl.uchile.dcc.citricliquid.model.Character.BossUnit;
 import cl.uchile.dcc.citricliquid.model.Character.ICharacter;
 import cl.uchile.dcc.citricliquid.model.Character.Player;
+import cl.uchile.dcc.citricliquid.model.Character.WildUnit;
 import cl.uchile.dcc.citricliquid.model.board.*;
 import cl.uchile.dcc.citricliquid.view.States.StarState;
 import cl.uchile.dcc.citricliquid.view.States.State;
@@ -18,7 +20,7 @@ public class Controller {
     private Player control;
     private Player nonePlayer = new Player("no winner yet",0,0,0,0);
     private ICharacter rival = nonePlayer;
-    private int turns_played;
+    private int turn;
     private int numberOfEnemies;
     private ICharacter actual = nonePlayer;
 
@@ -26,7 +28,7 @@ public class Controller {
     private State state;
 
     public Controller(){
-        turns_played = 1;
+        turn= 1;
         chapter = 1;
         state = new State();
         SetState(new StarState()); //always start with a start state
@@ -53,8 +55,24 @@ public class Controller {
      * @return control
      */
     public Player getControl() {
-        control = playersInGame.get((turns_played - 1) % playersInGame.size());
+        control = playersInGame.get((turn - 1) % playersInGame.size());
         return control;
+    }
+
+    /**
+     * get's the player's list.
+     * @return player's in Game.
+     */
+    public List<Player> getPlayersInGame() {
+        return playersInGame;
+    }
+
+    /**
+     * set's the turn to be played.
+     */
+    public void setTurns_played(int newturn ){
+        this.turn = newturn;
+        actual = getControl();
     }
 
     /**
@@ -109,11 +127,10 @@ public class Controller {
      * @param HP
      * @return new player
      */
-    public Player addPlayer(String playerName, int hp, int atk, int def, int evd, HomePanel HP) {
+    public Player addPlayer(String playerName, int hp, int atk, int def, int evd, @NotNull HomePanel HP) {
         Player newpl = new Player(playerName, hp, atk, def, evd);
         playersInGame.add(newpl);
         newpl.SetHomePanel(HP);
-        HP.setOwner(newpl);
         HP.addPlayer(newpl);
         newpl.SetActualPanel(HP);
         return newpl;
@@ -181,5 +198,35 @@ public class Controller {
      */
     public int getChapter() {
         return chapter;
+    }
+
+
+    /**
+     * functions to add a boss unit or a Wild Unit.
+     * @param name
+     * @param hp
+     * @param atk
+     * @param def
+     * @param evd
+     * @return Boss Unit or Wild Unit
+     */
+    public BossUnit addBossUnit(String name, int hp, int atk, int def, int evd) {
+        return new BossUnit(name, hp, atk, def, evd);
+    }
+
+    public WildUnit addWildUnit(String name, int hp, int atk, int def, int evd) {
+        return new WildUnit(name, hp, atk, def, evd);
+    }
+
+    public EncounterPanel addEncounterPanel(int i) {
+        EncounterPanel newep = new EncounterPanel(PanelType.ENCOUNTER,i);
+        panelList.add(newep);
+        return newep;
+    }
+
+    public BossPanel addBossPanel(int i) {
+        BossPanel newbp = new BossPanel(PanelType.BOSS,i);
+        panelList.add(newbp);
+        return newbp;
     }
 }

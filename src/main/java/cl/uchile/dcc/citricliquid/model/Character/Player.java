@@ -148,8 +148,7 @@ public class Player extends AbstractCharacter {
            && getWins() == player.getWins()
            && getStars() == player.getStars()
            && getCurrentHp() == player.getCurrentHp()
-           && getName().equals(player.getName())
-           && getHomepanel() == player.getHomepanel();
+           && getName().equals(player.getName());
   }
 
   /**
@@ -217,10 +216,7 @@ public class Player extends AbstractCharacter {
    * @param panel
    */
   public void SetHomePanel(HomePanel panel) {
-    if (panel.owner == null) {
-      this.homepanel = panel;
-      panel.setOwner(this);
-    }
+    this.homepanel = panel;
   }
 
   /**
