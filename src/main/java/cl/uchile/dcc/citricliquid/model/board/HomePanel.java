@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class HomePanel extends AbstractPanel{
-    public Player owner;
 
     /**
      * Creates a new home panel.

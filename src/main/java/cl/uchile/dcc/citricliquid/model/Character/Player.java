@@ -3,6 +3,8 @@ package cl.uchile.dcc.citricliquid.model.Character;
 import cl.uchile.dcc.citricliquid.model.board.HomePanel;
 import cl.uchile.dcc.citricliquid.model.board.IPanel;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 /**
@@ -12,7 +14,7 @@ import java.util.List;
  * @author <a href="mailto:gonzalo.sobarzo@ug.uchile.cl">Gonzalo Sobarzo A.</a>.
 =======
  * @author <a href="mailto:gonzalo.sobarzo@ug.uchile.cl">Gonzalo Sobarzo A.</a>.*
->>>>>>> Tarea_1
+>>>>>>> Tarea_2
  * @version 1.1.222804
  * @since 1.0
  */
@@ -22,6 +24,9 @@ public class Player extends AbstractCharacter {
   private ObjectiveNorma objectiveNorma;
   private IPanel homepanel;
   private IPanel actualPanel;
+  private boolean canMove;
+  private final PropertyChangeSupport normaObserver = new PropertyChangeSupport(this);
+  private final PropertyChangeSupport atHomePanel= new PropertyChangeSupport(this);
   /**
    * Creates a new character.
    *
@@ -44,6 +49,7 @@ public class Player extends AbstractCharacter {
     wins = 0;
     this.homepanel = null;
     this.actualPanel = null;
+    this.canMove = false;
   }
 
   /**
@@ -94,6 +100,7 @@ public class Player extends AbstractCharacter {
    */
   public void normaClear() {
     normaLevel++;
+    normaObserver.firePropertyChange("Norma Clear", (normaLevel - 1), normaLevel);
   }
 
   /**
@@ -224,5 +231,21 @@ public class Player extends AbstractCharacter {
    */
   public void SetActualPanel(IPanel panel){
     this.actualPanel = panel;
+  }
+
+  /**
+   * Methods that adss a Observer in the player.
+   * @param Observer new Listener
+   */
+  public void addNormaLevelListener(PropertyChangeListener Observer){
+    normaObserver.addPropertyChangeListener(Observer);
+  }
+
+  public void addAtHomePanelObservation(PropertyChangeListener Listener){
+    atHomePanel.addPropertyChangeListener(Listener);
+  }
+
+  public void setCanMove(boolean canMove) {
+    this.canMove = canMove;
   }
 }

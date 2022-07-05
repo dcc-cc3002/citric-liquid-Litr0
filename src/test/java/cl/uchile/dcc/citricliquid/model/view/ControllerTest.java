@@ -1,12 +1,14 @@
 package cl.uchile.dcc.citricliquid.model.view;
 
 import cl.uchile.dcc.citricliquid.model.Character.BossUnit;
+import cl.uchile.dcc.citricliquid.model.Character.ObjectiveNorma;
 import cl.uchile.dcc.citricliquid.model.Character.Player;
 import cl.uchile.dcc.citricliquid.model.Character.WildUnit;
 import cl.uchile.dcc.citricliquid.model.board.*;
 import cl.uchile.dcc.citricliquid.view.Controller;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -127,12 +129,47 @@ public class ControllerTest {
 
     @Test
     public void TurnChangeTest(){
+        Assertions.assertEquals(suguri,controller.getControl());
+        controller.endTurn();
+        Assertions.assertEquals(marc,controller.getControl());
+        controller.endTurn();
+        Assertions.assertNotEquals(marc,controller.getControl());
+        Assertions.assertEquals(poppo,controller.getControl());
+        controller.endTurn();
+        Assertions.assertEquals(kai,controller.getControl());
 
     }
 
+    @Test
+    public void NormaTest(){
+        assertEquals(suguri.getObjectiveNorma(),suguriC.getObjectiveNorma());
+        assertEquals(ObjectiveNorma.STARS,controller.getControl().getObjectiveNorma());
+        controller.setObjectiveNorma(ObjectiveNorma.WINS);
+        assertEquals(ObjectiveNorma.WINS,controller.getControl().getObjectiveNorma());
+        controller.setObjectiveNorma(ObjectiveNorma.STARS);
+        assertEquals(ObjectiveNorma.STARS,controller.getControl().getObjectiveNorma());
+    }
+
+    @RepeatedTest(150)
+    public void MovingTest(){
+        controller.getControl().getActualPanel().removePlayer(controller.getControl());
+        controller.getControl().SetActualPanel(TestBonusPanel);
+        controller.setNextPanel(HomePanelSuguri, TestBonusPanel);
+        controller.setNextPanel(TestBonusPanel, HomePanelSuguri);
+        controller.setNextPanel(TestBonusPanel, TestNeutralPanel);
+        controller.setNextPanel(TestNeutralPanel, TestBonusPanel);
+        HomePanelSuguri.setRight(TestBonusPanel);
+        TestBonusPanel.setLeft(HomePanelSuguri);
+        TestBonusPanel.setRight(TestNeutralPanel);
+        TestNeutralPanel.setLeft(TestBonusPanel); //straight lines of panels
+
+        controller.getState().start();
+        controller.left();
+        Assertions.assertTrue(HomePanelSuguri.getPlayersList().contains(controller.getControl()));
 
 
 
+    }
 
 
 

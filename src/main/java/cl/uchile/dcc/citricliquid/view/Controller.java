@@ -1,14 +1,14 @@
 package cl.uchile.dcc.citricliquid.view;
 
-import cl.uchile.dcc.citricliquid.model.Character.BossUnit;
-import cl.uchile.dcc.citricliquid.model.Character.ICharacter;
-import cl.uchile.dcc.citricliquid.model.Character.Player;
-import cl.uchile.dcc.citricliquid.model.Character.WildUnit;
+import cl.uchile.dcc.citricliquid.model.Character.*;
+import cl.uchile.dcc.citricliquid.model.Handler.AtHomePanelObserver;
+import cl.uchile.dcc.citricliquid.model.Handler.NormaObserver;
 import cl.uchile.dcc.citricliquid.model.board.*;
 import cl.uchile.dcc.citricliquid.view.States.StarState;
 import cl.uchile.dcc.citricliquid.view.States.State;
 import org.jetbrains.annotations.NotNull;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +23,11 @@ public class Controller {
     private int turn;
     private int numberOfEnemies;
     private ICharacter actual = nonePlayer;
+    private final NormaObserver normaObserver = new NormaObserver(this);
 
     private Player champion = nonePlayer;
     private State state;
+    private PropertyChangeListener atHomePanelObservation = new AtHomePanelObserver(this);
 
     public Controller(){
         turn= 1;
@@ -70,7 +72,7 @@ public class Controller {
     /**
      * set's the turn to be played.
      */
-    public void setTurns_played(int newturn ){
+    public void setTurn(int newturn ){
         this.turn = newturn;
         actual = getControl();
     }
@@ -228,5 +230,74 @@ public class Controller {
         BossPanel newbp = new BossPanel(PanelType.BOSS,i);
         panelList.add(newbp);
         return newbp;
+    }
+
+    /**
+     * End's the turn.
+     */
+    public void endTurn(){
+        if (turn % playersInGame.size() != 0){
+            setRoll_steps(0);
+            activatePanel(getControl(), getControl().getActualPanel());
+            getControl().addNormaLevelListener(normaObserver);
+            setTurn(turn + 1);
+        }
+        else {
+            chapter ++;
+        }
+
+    }
+
+    /**
+     * Activates the effect of the panel.
+     * @param control player
+     * @param actualPanel panel
+     */
+    private void activatePanel(Player control, @NotNull IPanel actualPanel) {
+        actualPanel.activatedBy(control);
+    }
+
+    /**
+     * using an observer to see if the norma level of a player has changed.
+     * @param actualNormaLevel new norma of the player.
+     */
+    public void SeeIfChampion(int actualNormaLevel){
+        if(actualNormaLevel == 6){
+            champion = getControl();
+        }
+    }
+
+    public void setObjectiveNorma(ObjectiveNorma newObjetive){
+        getControl().setObjectiveNorma(newObjetive);
+    }
+
+ 
+    
+    public void setActual(ICharacter actual) {
+        this.actual = actual;
+    }
+
+    public boolean KO_status() {
+        return getControl().KO_Status();
+    }
+
+    public void left() {
+    }
+
+    public void move() {
+        getControl().increaseStarsBy((int) (Math.floor(getChapter()/5)+1));
+        control.addAtHomePanelObservation(atHomePanelObservation);
+
+        roll_steps = roll();
+    }
+
+    public void onHomePanel(boolean homepanel) {
+        setCanMove(false);
+        state.toWaitHomeState();
+
+    }
+
+    private void setCanMove(boolean canMove) {
+        getControl().setCanMove(canMove);
     }
 }

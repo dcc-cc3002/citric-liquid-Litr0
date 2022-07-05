@@ -7,7 +7,7 @@ import java.beans.PropertyChangeEvent;
 /**
  * class to observe the norma level of the character's
  */
-public class NormaObserver {
+public class NormaObserver implements IHandler {
     private Controller controller;
 
     /**
@@ -18,6 +18,12 @@ public class NormaObserver {
         this.controller = controller;
     }
 
+    /**
+     * gets called when the norma level of a layer changes
+     * @param changeEvent
+     */
+    @Override
     public void propertyChange(PropertyChangeEvent changeEvent){
+        controller.SeeIfChampion((int) changeEvent.getNewValue());
     }
 }

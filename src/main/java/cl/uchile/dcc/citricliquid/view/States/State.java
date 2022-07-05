@@ -143,5 +143,25 @@ public class State {
         }
     }
 
+    public void start(){
+        if (CanStart && controller.KO_status()){
+            toRecoveryPhase();
+            controller.revive();
+        }
+        else if (!CanStart && !controller.KO_status()){
+
+        }
+        else {
+            toCanMoveState();
+            controller.getState().firstMove();
+        }
+    }
+
+    private void firstMove() {
+        if (CanMove){
+            controller.move();
+        }
+    }
+
 
 }
