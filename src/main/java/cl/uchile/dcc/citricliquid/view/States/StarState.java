@@ -16,6 +16,11 @@ public class StarState extends State {
     }
 
     @Override
+    public String toString(){
+        return "Start State";
+    }
+
+    @Override
     public void toRecoveryPhase(){
         ChangeState(new RecoveryPhase());
     }

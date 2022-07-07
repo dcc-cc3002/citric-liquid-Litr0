@@ -1,6 +1,7 @@
 package cl.uchile.dcc.citricliquid.view.States;
 
 
+import cl.uchile.dcc.citricliquid.model.Character.AbstractCharacter;
 import cl.uchile.dcc.citricliquid.view.Controller;
 
 public class State {
@@ -88,80 +89,161 @@ public class State {
     /**
      * moves to the Recovery Phase.
      */
-    public void toRecoveryPhase(){
+    public void toRecoveryPhase() throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to this State from" + toString());
     }
 
     /**
      * moves to the initial State for the player.
      */
-    public void toStartState(){
+    public void toStartState() throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to this State from" + toString());
 
     }
     /**
      * moves to the choosing path state.
      */
-    public void toChoosePathState(){
+    public void toChoosePathState() throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to this State from" + toString());
 
     }
     /**
      * moves to the battle state.
      */
-    public void toBattleState(){
-
+    public void toBattleState(AbstractCharacter attack, AbstractCharacter defend_evade) throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to this State from" + toString());
     }
     /**
      * moves to the waiting fight state.
      */
-    public void toWaitingFightState(){
+    public void toWaitingFightState(AbstractCharacter attack, AbstractCharacter defend_evade) throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to this State from" + toString());
 
     }
 
     /**
      * moves to waiting home state.
      */
-    public void toWaitHomeState(){
-
+    public void toWaitHomeState() throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to this State from" + toString());
     }
 
     /**
      * moves to the state where it's move.
      */
-    public void toCanMoveState(){
-
+    public void toCanMoveState() throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to this State from" + toString());
     }
 
     /**
      * moves to End Turn State
      */
-    public void toEndTurnState(){
-
+    public void toEndTurnState() throws InvalidTransitionException {
+        throw new InvalidTransitionException("Can't go to this State from" + toString());
     }
 
-    public void revive(){
-        if(isK_O()){
-           controller.revive();
+    public void revive() throws InvalidMovementException, InvalidTransitionException {
+        if(!isK_O()){
+            throw new InvalidMovementException("Can't revive at" + toString());
         }
+        controller.revive();
     }
 
-    public void start(){
-        if (CanStart && controller.KO_status()){
+    public void start() throws InvalidMovementException, InvalidTransitionException {
+        if (isCanStart() && controller.KO_status()){
             toRecoveryPhase();
-            controller.revive();
+            controller.tryToRevive();
         }
         else if (!CanStart && !controller.KO_status()){
+            throw  new InvalidMovementException ("at" + toString() + "you can't start");
 
         }
         else {
             toCanMoveState();
-            controller.getState().firstMove();
+            controller.tryFirstMove();
         }
     }
 
-    private void firstMove() {
-        if (CanMove){
+    public void firstMove() throws InvalidMovementException {
+        if (isCanMove()){
             controller.move();
         }
+        else {
+            throw new InvalidMovementException("Can't move at" + toString());
+        }
     }
 
+    public void move() throws  InvalidMovementException{
+        if (!isCanMove()) {
+            throw new InvalidMovementException("Can't move now");
+        }
+        controller.movePlayer();
+    }
+
+    public void keepMoving() throws InvalidMovementException, InvalidTransitionException {
+        if(!isWaitHome() &&!isWaitingFight() && !isChoosePath()&&!isCanMove()){
+            throw new InvalidMovementException("Can't keep moving at: "+toString());
+        }
+
+        controller.tryToMove();
+    }
+
+
+    public String toString(){
+        return "Phase";
+    }
+
+
+    public void up() throws InvalidTransitionException, InvalidMovementException {
+        throw new InvalidMovementException("Can't go up at" + toString());
+    }
+
+    public void down() throws InvalidTransitionException, InvalidMovementException {
+        throw new InvalidMovementException("Can't go down at" + toString());
+    }
+
+    public void left() throws InvalidTransitionException, InvalidMovementException {
+        throw new InvalidMovementException("Can't go left at" + toString());
+    }
+
+    public void right() throws InvalidTransitionException, InvalidMovementException {
+        throw new InvalidMovementException("Can't go right at" + toString());
+    }
+
+    public void endTurn() throws InvalidMovementException{
+        if (!isCanEnd()) {
+            throw new InvalidMovementException("Can't end turn at" + toString());
+        }
+    }
+
+    public void stayAtHome() throws InvalidMovementException{
+        if (!isWaitHome()) {
+            throw new InvalidMovementException("Can't be at home at" + toString());
+        }
+    }
+
+    public void iAmGoingToFight() throws InvalidMovementException {
+        if (controller.KO_status() | !isWaitingFight()){
+            throw new InvalidMovementException("Can't fight at" + toString());
+        }
+    }
+
+    public void attack() throws InvalidMovementException {
+        if (!isBattle()) {
+            throw new InvalidMovementException("Can't do this now");
+        }
+    }
+
+    public void defend() throws InvalidMovementException, InvalidTransitionException{
+        if (!isWaitingFight()){
+            throw new InvalidMovementException("Can't do this now");
+        }
+    }
+
+    public void evade() throws InvalidMovementException, InvalidTransitionException{
+        if (!isWaitingFight()){
+            throw new InvalidMovementException("Can't do this now");
+        }
+    }
 
 }

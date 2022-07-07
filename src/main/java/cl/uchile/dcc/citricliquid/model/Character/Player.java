@@ -27,6 +27,8 @@ public class Player extends AbstractCharacter {
   private boolean canMove;
   private final PropertyChangeSupport normaObserver = new PropertyChangeSupport(this);
   private final PropertyChangeSupport atHomePanel= new PropertyChangeSupport(this);
+  private final PropertyChangeSupport moreThanOnePlayer= new PropertyChangeSupport(this);
+  private final PropertyChangeSupport moreThanOnePath= new PropertyChangeSupport(this);
   /**
    * Creates a new character.
    *
@@ -231,13 +233,30 @@ public class Player extends AbstractCharacter {
    */
   public void SetActualPanel(IPanel panel){
     this.actualPanel = panel;
+    if(this.getHomePanel().getId()==panel.getId()) {
+      atHomePanel.firePropertyChange("AM_I_at_Home", false,true);
+    }
+
+    else if(panel.getPlayersList().size()>1) {
+      moreThanOnePlayer.firePropertyChange("More_than_one_player",
+              true,false);
+    }
+
+    else if(panel.getNextPanels().size()>1) {
+      moreThanOnePath.firePropertyChange("More_than_one_path",
+              true,false);
+    }
+  }
+
+  private IPanel getHomePanel() {
+    return homepanel;
   }
 
   /**
    * Methods that adss a Observer in the player.
    * @param Observer new Listener
    */
-  public void addNormaLevelListener(PropertyChangeListener Observer){
+  public void addNormaLevelObserver(PropertyChangeListener Observer){
     normaObserver.addPropertyChangeListener(Observer);
   }
 
@@ -245,7 +264,20 @@ public class Player extends AbstractCharacter {
     atHomePanel.addPropertyChangeListener(Listener);
   }
 
+  public void addAmountOfPlayerObserver(PropertyChangeListener Listener){
+    moreThanOnePlayer.addPropertyChangeListener(Listener);
+  }
+
+
+  public void addMoreTanOnePathObservation(PropertyChangeListener Listener){
+    moreThanOnePath.addPropertyChangeListener(Listener);
+  }
+
   public void setCanMove(boolean canMove) {
     this.canMove = canMove;
+  }
+
+  public boolean getCanMove() {
+    return canMove;
   }
 }

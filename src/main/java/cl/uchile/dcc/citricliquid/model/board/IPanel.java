@@ -48,4 +48,43 @@ public interface IPanel {
      * @param player
      */
     void removePlayer(Player player);
+
+    /**
+     * getter for the id
+     * @return Id of the panel.
+     */
+    int getId();
+
+     void setUp(IPanel panel);
+    /**
+     * Set's a panel Down
+     */
+    void setDown(IPanel panel);
+
+    /**
+     * Set's a panel right
+     */
+    void setRight(IPanel panel);
+
+    /**
+     * Set's a panel left
+     */
+     void setLeft(IPanel panel);
+
+    /**
+     * Get's the panel above
+     */
+     IPanel getUp();
+    /**
+     * Get's the panel down
+     */
+     IPanel getDown();
+    /**
+     * Get's the panel right
+     */
+     IPanel getRight();
+    /**
+     * Get's the panel left
+     */
+     IPanel getLeft();
 }

@@ -1,5 +1,7 @@
 package cl.uchile.dcc.citricliquid.view.States;
 
+import cl.uchile.dcc.citricliquid.model.Character.AbstractCharacter;
+
 public class CanMoveState extends State {
     public CanMoveState(){
         this.CanStart = false;
@@ -12,6 +14,11 @@ public class CanMoveState extends State {
         this.K_O = false;
         this.ChoosePath = false ;
         this.StopAtHome = false;
+    }
+
+    @Override
+    public String toString(){
+        return "Can Move State";
     }
 
     @Override
@@ -29,5 +36,8 @@ public class CanMoveState extends State {
         ChangeState(new EndTurnState());
     }
 
-
+    @Override
+    public void toWaitingFightState(AbstractCharacter attack, AbstractCharacter defend_evade){
+        ChangeState(new WaitingFightState(attack, defend_evade));
+    }
 }

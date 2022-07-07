@@ -97,4 +97,10 @@ public interface ICharacter {
      * @param bossunit
      */
     void increaseStarsByBossUnit(BossUnit bossunit);
+
+    /**
+     * sees if a character is KO
+     * @return true or false.
+     */
+    boolean KO_Status();
 }

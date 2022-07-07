@@ -79,26 +79,10 @@ public class StateTest {
         Assertions.assertTrue(HomePanelKai.getPlayersList().contains(kai));
     }
 
-    /*@Test
+    @Test
     public void StartStateAndRecoveryTest(){
-        controller.setNextPanel(HomePanelSuguri,TestNeutralPanel1);
-        controller.setNextPanel(TestNeutralPanel1,HomePanelSuguri);
-        controller.setNextPanel(HomePanelSuguri,TestNeutralPanel2);
-        controller.setNextPanel(TestNeutralPanel2,HomePanelSuguri);
-        HomePanelSuguri.setDown(TestNeutralPanel1);
-        HomePanelSuguri.setRight(TestNeutralPanel2);
-        TestNeutralPanel1.setUp(HomePanelSuguri);
-        TestNeutralPanel2.setLeft(HomePanelSuguri);
-        controller.setNextPanel(TestNeutralPanel1,TestBonusPanel);
-        controller.setNextPanel(TestBonusPanel,TestNeutralPanel1);
-        controller.setNextPanel(TestNeutralPanel2,TestBonusPanel);
-        controller.setNextPanel(TestBonusPanel,TestNeutralPanel2);
-        TestNeutralPanel1.setRight(TestBonusPanel);
-        TestBonusPanel.setLeft(TestNeutralPanel1);
-        TestNeutralPanel2.setDown(TestBonusPanel);
-        TestBonusPanel.setUp(TestNeutralPanel2);
 
-    }*/
+    }
 
 
 

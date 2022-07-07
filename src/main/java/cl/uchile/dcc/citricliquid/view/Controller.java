@@ -2,8 +2,12 @@ package cl.uchile.dcc.citricliquid.view;
 
 import cl.uchile.dcc.citricliquid.model.Character.*;
 import cl.uchile.dcc.citricliquid.model.Handler.AtHomePanelObserver;
+import cl.uchile.dcc.citricliquid.model.Handler.MoreThanOnePathObserver;
+import cl.uchile.dcc.citricliquid.model.Handler.MoreThanOnePlayerObserver;
 import cl.uchile.dcc.citricliquid.model.Handler.NormaObserver;
 import cl.uchile.dcc.citricliquid.model.board.*;
+import cl.uchile.dcc.citricliquid.view.States.InvalidMovementException;
+import cl.uchile.dcc.citricliquid.view.States.InvalidTransitionException;
 import cl.uchile.dcc.citricliquid.view.States.StarState;
 import cl.uchile.dcc.citricliquid.view.States.State;
 import org.jetbrains.annotations.NotNull;
@@ -19,15 +23,19 @@ public class Controller {
     int roll_steps;
     private Player control;
     private Player nonePlayer = new Player("no winner yet",0,0,0,0);
-    private ICharacter rival = nonePlayer;
+    private AbstractCharacter rival = nonePlayer;
     private int turn;
     private int numberOfEnemies;
-    private ICharacter actual = nonePlayer;
+    private AbstractCharacter actual = nonePlayer;
     private final NormaObserver normaObserver = new NormaObserver(this);
 
     private Player champion = nonePlayer;
     private State state;
     private PropertyChangeListener atHomePanelObservation = new AtHomePanelObserver(this);
+
+    private final MoreThanOnePlayerObserver moreThanOnePlayerObserver =  new MoreThanOnePlayerObserver(this);
+
+    private final MoreThanOnePathObserver moreThanOnePathObserver =  new MoreThanOnePathObserver(this);
 
     public Controller(){
         turn= 1;
@@ -97,7 +105,7 @@ public class Controller {
     /**
      * tries to revive the player following the rules of the game.
      */
-    public void revive() {
+    public void revive() throws InvalidTransitionException {
         int roll = roll();
         if (roll <= chapter){
             state.toEndTurnState();
@@ -239,7 +247,7 @@ public class Controller {
         if (turn % playersInGame.size() != 0){
             setRoll_steps(0);
             activatePanel(getControl(), getControl().getActualPanel());
-            getControl().addNormaLevelListener(normaObserver);
+            getControl().addNormaLevelObserver(normaObserver);
             setTurn(turn + 1);
         }
         else {
@@ -273,7 +281,7 @@ public class Controller {
 
  
     
-    public void setActual(ICharacter actual) {
+    public void setActual(AbstractCharacter actual) {
         this.actual = actual;
     }
 
@@ -281,23 +289,308 @@ public class Controller {
         return getControl().KO_Status();
     }
 
-    public void left() {
+    public void left() throws InvalidTransitionException{
+        setRoll_steps(getRoll_steps() - 1);
+        state.toCanMoveState();
+        setCanMove(true);
+        setPlayerPanel(getControl(), getControl().getActualPanel().getLeft());
+        if (roll_steps == 0){
+            stopMovement();
+        }
+    }
+
+    public void right() throws InvalidTransitionException {
+        setRoll_steps(getRoll_steps()-1);
+        state.toCanMoveState();
+        setCanMove(true);
+        setPlayerPanel(getControl(),getControl().getActualPanel().getRight());
+        if(roll_steps==0){
+            stopMovement();
+        }
+    }
+
+    public void up() throws InvalidTransitionException {
+        setRoll_steps(getRoll_steps()-1);
+        state.toCanMoveState();
+        setCanMove(true);
+        setPlayerPanel(getControl(),getControl().getActualPanel().getUp());
+        if(roll_steps==0){
+            stopMovement();
+        }
+    }
+
+    public void down() throws InvalidTransitionException {
+        setRoll_steps(getRoll_steps()-1);
+        state.toCanMoveState();
+        setCanMove(true);
+        setPlayerPanel(getControl(),getControl().getActualPanel().getDown());
+        if(roll_steps==0){
+            stopMovement();
+        }
+    }
+
+
+
+    private void stopMovement() throws InvalidTransitionException {
+        state.toEndTurnState();
     }
 
     public void move() {
-        getControl().increaseStarsBy((int) (Math.floor(getChapter()/5)+1));
+        getControl().increaseStarsBy((int) (Math.floor(getChapter()/5)+1)); //stars per turn
         control.addAtHomePanelObservation(atHomePanelObservation);
+        control.addAmountOfPlayerObserver(moreThanOnePlayerObserver);
+        control.addMoreTanOnePathObservation(moreThanOnePathObserver);
 
         roll_steps = roll();
+        if (!getControl().getCanMove() && roll_steps > 0){
+            try {
+                state.toChoosePathState();
+            } catch (InvalidTransitionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (roll_steps < 0){
+            try {
+                state.toEndTurnState();
+            } catch (InvalidTransitionException e){
+                e.printStackTrace();
+            }
+        }
+        else{
+            while (roll_steps > 0 && getControl().getCanMove()){
+                IPanel newPanel = getControl().getActualPanel().getNextPanels().iterator().next();
+                setPlayerPanel(getControl(), newPanel);
+            }
+        }
     }
 
     public void onHomePanel(boolean homepanel) {
         setCanMove(false);
-        state.toWaitHomeState();
-
+        try {
+            state.toWaitHomeState();
+        } catch (InvalidTransitionException e){
+            e.printStackTrace();
+        }
     }
 
     private void setCanMove(boolean canMove) {
         getControl().setCanMove(canMove);
     }
+
+
+    public void onMoreThanOnePath(boolean newValue) {
+        if(!newValue) {
+            setCanMove(false);
+            try {
+                state.toChoosePathState();
+            } catch (InvalidTransitionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void onMoreThanOnePlayer(boolean newValue) {
+        if(!newValue) {
+            setCanMove(false);
+            List<Player> opponents = new ArrayList<>();
+            opponents.addAll(getControl().getActualPanel().getPlayersList());
+            opponents.remove(getControl());
+            numberOfEnemies = opponents.size();
+            setRival(opponents.get(0));
+            try {
+                state.toWaitingFightState(getControl(), getRival());
+            } catch (InvalidTransitionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setRival(AbstractCharacter rival) {
+        this.rival = rival;
+    }
+
+    public AbstractCharacter getRival() {
+        return rival;
+    }
+
+    public int getRoll_steps() {
+        return roll_steps;
+    }
+
+    public void tryToRevive() {
+        try {
+            state.revive();
+        } catch (InvalidTransitionException | InvalidMovementException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void tryFirstMove() {
+        try {
+            state.firstMove();
+        } catch (InvalidMovementException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void tryToStart(){
+        try {
+            this.setActual(getControl());
+            state.start();
+        } catch (InvalidMovementException | InvalidTransitionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToMove(){
+        try {
+            state.move();
+        } catch (InvalidMovementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToKeepMoving(){
+        try {
+            state.toCanMoveState();
+            state.keepMoving();
+        } catch (InvalidTransitionException | InvalidMovementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToStayAtHome(){
+        try {
+            state.stayAtHome();
+        } catch (InvalidMovementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToEvade(){
+        try{
+            state.evade();
+        } catch (InvalidMovementException | InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToDefend(){
+        try {
+            state.defend();
+        } catch (InvalidMovementException | InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+    public void tryToGoLeft(){
+        try{
+            state.left();
+        }catch (InvalidMovementException | InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToGoRight(){
+        try{
+            state.right();
+        }catch (InvalidMovementException | InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void tryToGoRUp(){
+        try{
+            state.up();
+        }catch (InvalidMovementException | InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToGoDown(){
+        try{
+            state.down();
+        }catch (InvalidMovementException | InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToEndTurn(){
+        try {
+            state.endTurn();
+        } catch (InvalidMovementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void tryToFight(){
+        try {
+            state.iAmGoingToFight();
+        } catch (InvalidMovementException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void movePlayer() {
+        if (!getControl().getCanMove() & roll_steps > 0){
+            try {
+                state.toChoosePathState();
+            } catch (InvalidTransitionException e){
+                e.printStackTrace();
+            }
+        }
+        else {
+            try{
+                state.toEndTurnState();
+            } catch (InvalidTransitionException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public int attack(AbstractCharacter character){
+        return character.attack();
+    }
+
+    public void evade(AbstractCharacter attack, AbstractCharacter evade) throws InvalidTransitionException {
+        int atk = attack(attack);
+        evade.evade(atk);
+        afterEvent(attack, evade);
+    }
+
+    public void defend(AbstractCharacter attack, AbstractCharacter defend) throws InvalidTransitionException{
+        int atk = attack(attack);
+        defend.defend(atk);
+        afterEvent(attack, defend);
+    }
+
+    public void afterEvent(AbstractCharacter attack, AbstractCharacter victim) throws InvalidTransitionException{
+        if (victim.KO_Status()){
+            setActual(getControl());
+            setRival(nonePlayer);
+            attack.increaseStarsBy(victim);
+            if( attack instanceof Player){
+                victim.increaseWinsByPlayer((Player) attack);
+            }
+        }
+        else if (!victim.equals(getControl())){
+            nextAttack(victim, attack);
+        }
+    }
+
+    private void nextAttack(AbstractCharacter victim, AbstractCharacter attack) {
+        try {
+            state.toWaitingFightState(attack, victim);
+        } catch (InvalidTransitionException e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 }
+

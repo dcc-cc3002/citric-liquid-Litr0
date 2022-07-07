@@ -15,7 +15,18 @@ public class EndTurnState extends State {
     }
 
     @Override
+    public String toString(){
+        return "End Turn State";
+    }
+
+    @Override
     public void toStartState(){
         ChangeState(new StarState());
+    }
+
+    @Override
+    public void endTurn() throws InvalidMovementException{
+        super.endTurn();
+        toStartState();
     }
 }

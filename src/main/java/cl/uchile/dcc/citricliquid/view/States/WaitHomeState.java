@@ -13,13 +13,24 @@ public class WaitHomeState extends State {
         this.ChoosePath = false ;
         this.StopAtHome = false;
     }
+    @Override
+    public String toString(){
+        return "Wait Home State";
+    }
 
     @Override
     public void toCanMoveState(){
         ChangeState(new CanMoveState());
     }
+
     @Override
     public void toEndTurnState(){
         ChangeState(new EndTurnState());
+    }
+
+    @Override
+    public void stayAtHome() {
+        toEndTurnState();
+        controller.tryToEndTurn();
     }
 }
