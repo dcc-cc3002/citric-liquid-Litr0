@@ -39,7 +39,11 @@ public class ControllerTest {
     private HomePanel HomePanelMarc;
     private HomePanel HomePanelPoppo;
     private HomePanel HomePanelKai;
-    private NeutralPanel TestNeutralPanel;
+    private NeutralPanel TestNeutralPanel1;
+    private NeutralPanel TestNeutralPanel2;
+    private NeutralPanel TestNeutralPanel3;
+    private NeutralPanel TestNeutralPanel4;
+    private NeutralPanel TestNeutralPanel5;
     private DropPanel TestDropPanel;
     private BonusPanel TestBonusPanel;
     private EncounterPanel TestEncounterPanel; //needs to be upgraded to be tested
@@ -67,7 +71,11 @@ public class ControllerTest {
         poppoC = controller.addPlayer(PLAYER_NAME_3,7,-1,-1,-1, HomePanelPoppo);
         kaiC = controller.addPlayer(PLAYER_NAME_4,5,1,0,0, HomePanelKai);
 
-        TestNeutralPanel = new NeutralPanel(PanelType.NEUTRAL, 74);
+        TestNeutralPanel1 = new NeutralPanel(PanelType.NEUTRAL, 74);
+        TestNeutralPanel2 = new NeutralPanel(PanelType.NEUTRAL, 80);
+        TestNeutralPanel3 = new NeutralPanel(PanelType.NEUTRAL, 81);
+        TestNeutralPanel4 = new NeutralPanel(PanelType.NEUTRAL, 82);
+        TestNeutralPanel5 = new NeutralPanel(PanelType.NEUTRAL, 83);
         TestBonusPanel = new BonusPanel(PanelType.BONUS, 75);
         TestDropPanel = new DropPanel(PanelType.DROP, 76);
         TestEncounterPanel = new EncounterPanel(PanelType.ENCOUNTER, 77);
@@ -152,12 +160,12 @@ public class ControllerTest {
         assertEquals(ObjectiveNorma.STARS,controller.getControl().getObjectiveNorma());
     }
 
-    @RepeatedTest(150)
+    @RepeatedTest(100)
     public void MovingTest() throws InvalidMovementException, InvalidTransitionException {
         controller.getControl().getActualPanel().removePlayer(controller.getControl());
         controller.getControl().SetActualPanel(TestBonusPanel);
         controller.setNextPanel(HomePanelSuguri,TestBonusPanel);
-        controller.setNextPanel(TestBonusPanel,TestNeutralPanel);
+        controller.setNextPanel(TestBonusPanel,TestNeutralPanel1);
         controller.setNextPanel(TestBonusPanel,HomePanelSuguri);
         TestBonusPanel.setLeft(HomePanelSuguri);
 
@@ -169,11 +177,19 @@ public class ControllerTest {
         controller.endTurn();
 
         controller.setNextPanel(TestDropPanel, HomePanelMarc);
+        controller.setNextPanel(HomePanelMarc,TestDropPanel);
         controller.setNextPanel(TestDropPanel, HomePanelKai);
+        HomePanelMarc.setRight(TestDropPanel);
         Assertions.assertTrue(HomePanelMarc.getPlayersList().contains(controller.getControl()));
-
-
-
+        controller.tryToStart();
+        controller.tryToGoLeft();
+        Assertions.assertTrue(HomePanelMarc.getPlayersList().contains(controller.getControl()));
+        controller.tryToStart();
+        controller.tryToGoDown();
+        Assertions.assertTrue(HomePanelMarc.getPlayersList().contains(controller.getControl()));
+        controller.tryToStart();
+        controller.tryToGoUp();
+        Assertions.assertTrue(HomePanelMarc.getPlayersList().contains(controller.getControl()));
     }
 
 

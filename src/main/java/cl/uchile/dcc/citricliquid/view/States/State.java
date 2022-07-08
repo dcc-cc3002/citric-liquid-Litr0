@@ -6,7 +6,7 @@ import cl.uchile.dcc.citricliquid.view.Controller;
 
 public class State {
 
-    protected Controller controller; //later to do the actions
+    protected Controller controller;
     /**
      * booleans to check in what state we are in.
      */
@@ -190,7 +190,7 @@ public class State {
 
 
     public String toString(){
-        return "Phase";
+        return "State";
     }
 
 

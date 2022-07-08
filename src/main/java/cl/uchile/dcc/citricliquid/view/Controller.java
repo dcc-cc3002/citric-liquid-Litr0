@@ -31,7 +31,7 @@ public class Controller {
 
     private Player champion = nonePlayer;
     private State state;
-    private PropertyChangeListener atHomePanelObservation = new AtHomePanelObserver(this);
+    private  final AtHomePanelObserver atHomePanelObservation = new AtHomePanelObserver(this);
 
     private final MoreThanOnePlayerObserver moreThanOnePlayerObserver =  new MoreThanOnePlayerObserver(this);
 
@@ -61,6 +61,13 @@ public class Controller {
     }
 
     /**
+     * gets the state in string
+     */
+    public String getState2(){
+        return getState().toString();
+    }
+
+    /**
      * gets the player of the controller.
      * @return control
      */
@@ -70,7 +77,7 @@ public class Controller {
     }
 
     /**
-     * get's the player's list.
+     * gets the player's list.
      * @return player's in Game.
      */
     public List<Player> getPlayersInGame() {
@@ -107,11 +114,12 @@ public class Controller {
      */
     public void revive() throws InvalidTransitionException {
         int roll = roll();
-        if (roll <= chapter){
+        if (roll < chapter){
             state.toEndTurnState();
+            tryToEndTurn();
         }
         else{
-            getControl().setCurrentHp(getControl().copy().getMaxHp());
+            getControl().setCurrentHp(getControl().getMaxHp());
             state.toStartState();
         }
     }
@@ -140,8 +148,8 @@ public class Controller {
     public Player addPlayer(String playerName, int hp, int atk, int def, int evd, @NotNull HomePanel HP) {
         Player newpl = new Player(playerName, hp, atk, def, evd);
         playersInGame.add(newpl);
-        newpl.SetHomePanel(HP);
         HP.addPlayer(newpl);
+        newpl.SetHomePanel(HP);
         newpl.SetActualPanel(HP);
         return newpl;
     }
@@ -176,8 +184,8 @@ public class Controller {
 
     /**
      * set's a panel next to another.
-     * @param actual
-     * @param next
+     * @param actual actual panel.
+     * @param next next panel.
      */
     public void setNextPanel(@NotNull AbstractPanel actual, AbstractPanel next) {
         actual.addNextPanel(next);
@@ -251,7 +259,7 @@ public class Controller {
             setTurn(turn + 1);
         }
         else {
-            chapter ++;
+            chapter = Math.min(6, chapter + 1);
         }
 
     }
@@ -502,7 +510,7 @@ public class Controller {
     }
 
 
-    public void tryToGoRUp(){
+    public void tryToGoUp(){
         try{
             state.up();
         }catch (InvalidMovementException | InvalidTransitionException e){

@@ -153,7 +153,7 @@ public abstract class AbstractPanel implements IPanel {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getType(), getNextPanels(), getPlayersList());
+    return Objects.hash(type, id);
   }
 
   /**

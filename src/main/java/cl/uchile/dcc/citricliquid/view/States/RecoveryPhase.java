@@ -25,5 +25,4 @@ public class RecoveryPhase extends State{
         ChangeState(new StarState());
     }
 
-
 }
