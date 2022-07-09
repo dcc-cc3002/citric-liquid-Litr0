@@ -8,7 +8,7 @@ The project consists in creating a (simplified) clone of the game **100% Orange 
 developed by [Orange_Juice](http://daidai.moo.jp) and distributed by 
 [Fruitbat Factory](https://fruitbatfactory.com).
 
-Tarea 2:
+Entrega Tarea 2:
 Este proyecto trata de lograr los objetivos pretendidos por las entregas parciales 1 y 2 usando distintas estrategias para su resolución
 (Observer, State Pattern, un Controlador y Excepciones)
 Encounter Panel y Boss Panel no hacen nada por falta de tiempo no pude lograr que hicieran algo, lo unico es que en Encounter Panel genero 
