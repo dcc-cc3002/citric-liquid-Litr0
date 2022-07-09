@@ -1,6 +1,6 @@
 <!-- 1.0.3-b1 -->
 # 99.7% Citric Liquid
-
+Entrega de Tarea 1.
 Code for CC3002's *99.7% Citric Juice* Project by Gonzalo Sobarzo.
 
 
