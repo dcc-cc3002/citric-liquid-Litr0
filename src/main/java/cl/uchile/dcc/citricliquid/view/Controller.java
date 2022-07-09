@@ -114,14 +114,21 @@ public class Controller {
      */
     public void revive() throws InvalidTransitionException {
         int roll = roll();
-        if (roll < chapter){
+        List<Integer> requirement = List.of(6, 5, 4, 3, 2, 1);
+        int chapterRequirement = getChapter() - 1;
+        if (roll >= requirement.get(chapterRequirement)){
+            int max_HP = getControl().copy().getMaxHp();
+            getControl().setCurrentHp(max_HP);
+            state.toStartState();
+        }
+        else{
             state.toEndTurnState();
             tryToEndTurn();
         }
-        else{
-            getControl().setCurrentHp(getControl().getMaxHp());
-            state.toStartState();
-        }
+    }
+
+    public void setChapter(int chapter) {
+        this.chapter = Math.min(6, Math.max(1, chapter));
     }
 
     /**
@@ -291,6 +298,10 @@ public class Controller {
     
     public void setActual(AbstractCharacter actual) {
         this.actual = actual;
+    }
+
+    public AbstractCharacter getActual() {
+        return actual;
     }
 
     public boolean KO_status() {

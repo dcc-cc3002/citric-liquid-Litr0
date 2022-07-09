@@ -94,12 +94,12 @@ public class ControllerTest {
         Assertions.assertEquals(poppo,poppoC);
         Assertions.assertEquals(kai,kaiC);
 
-        BossUnit Shifu= controller.addBossUnit("Shifu_ROBOT",4,5,6,7);
-        BossUnit expected= new BossUnit("Shifu_ROBOT",4,5,6,7);
+        BossUnit Shifu= controller.addBossUnit("Shifu_ROBOT",7,2,3,-2);
+        BossUnit expected= new BossUnit("Shifu_ROBOT",7,2,3,-2);
         assertEquals(Shifu,expected);
 
-        WildUnit chicken= controller.addWildUnit("chicken",4,5,6,7);
-        WildUnit expectedchicken= new WildUnit("chicken",4,5,6,7);
+        WildUnit chicken= controller.addWildUnit("chicken",3,-1,-1,1);
+        WildUnit expectedchicken= new WildUnit("chicken",3,-1,-1,1);
         assertEquals(chicken,expectedchicken);
     }
 

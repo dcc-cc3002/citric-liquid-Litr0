@@ -25,4 +25,10 @@ public class RecoveryPhase extends State{
         ChangeState(new StarState());
     }
 
+
+    @Override
+    public void toEndTurnState(){
+        ChangeState(new EndTurnState());
+    }
+
 }

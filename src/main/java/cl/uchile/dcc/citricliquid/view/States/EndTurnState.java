@@ -26,7 +26,7 @@ public class EndTurnState extends State {
 
     @Override
     public void endTurn() throws InvalidMovementException{
-        super.endTurn();
+        controller.endTurn();
         toStartState();
     }
 }
